@@ -2,6 +2,6 @@
 [theme]
 primaryColor = "#EA7A05"          # Orange TIRCIS
 backgroundColor = "#F0F0F0"       # Gris très clair
-secondaryBackgroundColor = "#F5F5F5"  # Gris très clair
+secondaryBackgroundColor = "#EA7A05"          # Orange TIRCIS
 textColor = "#262730"             # Gris foncé
 font = "sans serif"               # ou "monospace", "serif"
