@@ -1,13 +1,5 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.patches import FancyArrowPatch
-
-st.title("Tableau de causalité")
-st.markdown("Explorez les effets de causalités entre les KPIs de votre entreprise !")
-import streamlit as st
-import pandas as pd
 
 # --- Chargement des données ---
 dim_kpis = pd.read_csv("data/dim_kpis.csv", sep=";")
