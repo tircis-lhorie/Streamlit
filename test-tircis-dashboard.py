@@ -22,8 +22,8 @@ def adjust_arrow_positions(start_pos, end_pos, node_radius):
     return (start_x + dx * node_radius, start_y + dy * node_radius), (end_x - dx * node_radius, end_y - dy * node_radius)
 
 # --- Chargement des données ---
-dim_kpis = pd.read_csv("dim_kpis.csv")
-fact_links = pd.read_csv("fact_links.csv")
+dim_kpis = pd.read_csv("dim_kpis.csv", sep=";")
+fact_links = pd.read_csv("fact_links.csv", sep=";")
 
 
 
