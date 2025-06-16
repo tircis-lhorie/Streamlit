@@ -14,6 +14,17 @@ st.title("Dashboard de performance")
 selected_kpi = st.selectbox("Sélectionnez un KPI", fact_data["kpi_name"].unique())
 
 # Filtres dans la barre latérale
+
+# Extraire les années uniques
+fact_data["Year"] = fact_data["Measure Date"].dt.year
+years = sorted(fact_data["Year"].unique())
+
+# Ajouter le filtre dans la sidebar
+selected_years = st.sidebar.multiselect("Années", options=years, default=years)
+
+# Appliquer le filtre
+fact_data = fact_data[fact_data["Year"].isin(selected_years)]
+
 with st.sidebar:
     st.subheader("Filtres")
     date_range = st.date_input(
