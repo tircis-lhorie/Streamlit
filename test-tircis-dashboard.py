@@ -55,6 +55,22 @@ if sust_filter == "Oui uniquement":
 elif sust_filter == "Non uniquement":
     fact_links = fact_links[(fact_links['kpi_from_is_sust'] == 'No') & (fact_links['kpi_to_is_sust'] == 'No')]
 
+
+
+
+# Exemple : afficher les 10 liens les plus forts
+fact_links = fact_links.sort_values(by="weight", ascending=False).head(10)
+
+plt.figure(figsize=(10, 6))
+plt.barh(fact_links['From'] + " ➜ " + fact_links['To'], fact_links['weight'])
+plt.xlabel("Poids du lien")
+plt.title("Liens causaux principaux")
+plt.gca().invert_yaxis()
+plt.show()
+
+
+
+
 # Données pour le graphe
 kpi_from_list = fact_links['kpi_from_name'].tolist()
 kpi_to_list = fact_links['kpi_to_name'].tolist()
