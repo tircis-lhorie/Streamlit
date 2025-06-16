@@ -13,7 +13,7 @@ st.markdown("Bienvenue sur votre espace TIRCIS.")
 page = st.sidebar.selectbox("Navigation", ["Accueil", "Graphe de Causalité", "Dashboard de KPIs"])
 
 # Sidebar
-#st.sidebar.image("Logo Linkedin.png", width=150)
+#st.sidebar.image("image/logo.png", width=150)
 st.sidebar.subheader("About This App")
 st.sidebar.info(
     """
@@ -44,8 +44,8 @@ def adjust_arrow_positions(start_pos, end_pos, node_radius):
     return (start_x + dx * node_radius, start_y + dy * node_radius), (end_x - dx * node_radius, end_y - dy * node_radius)
 
 # --- Chargement des données ---
-dim_kpis = pd.read_csv("dim_kpis.csv", sep=";")
-fact_links = pd.read_csv("fact_links.csv", sep=";")
+dim_kpis = pd.read_csv("data/dim_kpis.csv", sep=";")
+fact_links = pd.read_csv("data/fact_links.csv", sep=";")
 
 fact_links = fact_links[fact_links["weight"] > 0]
 
