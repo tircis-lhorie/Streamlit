@@ -12,10 +12,18 @@ st.markdown("Bienvenue sur votre espace TIRCIS.")
 
 page = st.sidebar.selectbox("Navigation", ["Accueil", "Graphe de Causalité", "Dashboard de KPIs"])
 
-# Sidebar
-st.sidebar.image("image/logo.png", width=150)
+# Afficher le logo dans le coin supérieur gauche
+st.markdown(
+    """
+    <style>
+    [data-testid="stSidebar"] > div:first-child {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
-
-
-
-
+st.sidebar.image("image/logo.png", use_column_width=True)
