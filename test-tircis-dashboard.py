@@ -31,8 +31,27 @@ fact_links = fact_links[fact_links["weight"] > 0]
 # --- Interface Streamlit ---
 st.set_page_config(page_title="TIRCIS Dashboard", layout="wide")
 st.title("\U0001F9E0 Visualisation des causalités entre KPIs")
+st.markdown("This app visualizes causal analysis between KPIs of Northwind data.")
+
 st.logo(image="Logo Linkedin.png", 
         icon_image="Logo Linkedin.png")
+
+
+# Additional Information
+st.sidebar.subheader("About This App")
+st.sidebar.info(
+    """
+    Cette application permet de visualiser les liens de causalité entre les indicateurs de performance (KPIs) 
+    d'une organisation. 
+
+    Le graphe représente les KPIs comme des nœuds, reliés entre eux par des flèches indiquant des relations causales 
+    identifiées statistiquement.
+
+    Utilisez les filtres pour explorer les indicateurs par catégorie BSC, durabilité, ou poids du lien.
+    """
+)
+
+
 
 col1, col2, col3, col4 = st.columns(4)
 bsc_view = col1.toggle("Vue BSC", value=False)
