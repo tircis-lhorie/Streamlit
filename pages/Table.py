@@ -108,3 +108,33 @@ st.dataframe(
     }),
     use_container_width=True
 )
+
+
+# --- Préparation du tableau exportable ---
+export_df = fact_links[[
+    'kpi_from_name', 'kpi_to_name', 'sign', 'weight',
+    'granger p-val', 'granger F-stat', 'type_of_comfirming_analysis',
+    'urgency', 'duration', 'granularity'
+]].rename(columns={
+    'kpi_from_name': 'KPI Source',
+    'kpi_to_name': 'KPI Cible',
+    'sign': 'Signe',
+    'weight': 'Poids',
+    'granger p-val': 'p-valeur',
+    'granger F-stat': 'F-stat',
+    'type_of_comfirming_analysis': 'Méthode',
+    'urgency': 'Urgence',
+    'duration': 'Durée',
+    'granularity': 'Granularité'
+})
+
+# --- Conversion en CSV (bytes) ---
+csv = export_df.to_csv(index=False).encode('utf-8')
+
+# --- Bouton de téléchargement ---
+st.download_button(
+    label="📥 Télécharger les données filtrées (CSV)",
+    data=csv,
+    file_name='liens_causaux_kpis.csv',
+    mime='text/csv'
+)
