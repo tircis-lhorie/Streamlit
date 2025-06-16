@@ -4,7 +4,7 @@ import altair as alt
 
 # Chargement des données
 fact_data = pd.read_csv("data/fact_data.csv", sep=";")
-fact_data["Measure Date"] = pd.to_datetime(fact_data["Measure Date"]).dt.strftime("%d/%m/%Y")
+fact_data["Measure Date"] = pd.to_datetime(fact_data["Measure Date"])
 
 
 # Titre de la page
