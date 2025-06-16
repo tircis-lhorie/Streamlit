@@ -33,11 +33,9 @@ st.set_page_config(page_title="TIRCIS Dashboard", layout="wide")
 st.title("\U0001F9E0 Visualisation des causalités entre KPIs")
 st.markdown("This app visualizes causal analysis between KPIs of Northwind data.")
 
-st.logo(image="Logo Linkedin.png", 
-        icon_image="Logo Linkedin.png")
 
-
-# Additional Information
+# Sidebar
+st.sidebar.image("Logo Linkedin.png", width=150)
 st.sidebar.subheader("About This App")
 st.sidebar.info(
     """
@@ -51,6 +49,13 @@ st.sidebar.info(
     """
 )
 
+# Filtres Sidebar
+with st.sidebar:
+    st.header("Filtres avancés")
+    bsc_filter = st.multiselect("Filtrer par catégorie BSC", dim_kpis['bsc_category'].dropna().unique())
+    sust_filter = st.selectbox("Durable uniquement ?", ["Tous", "Oui uniquement", "Non uniquement"])
+
+
 
 
 col1, col2, col3, col4 = st.columns(4)
@@ -59,12 +64,6 @@ signs_on = col2.toggle("Afficher les signes", value=False)
 sust_on = col3.toggle("Colorer durabilité", value=True)
 weights_on = col4.toggle("Épaisseur selon poids", value=False)
 
-
-# Filtres supplémentaires
-with st.sidebar:
-    st.header("Filtres avancés")
-    bsc_filter = st.multiselect("Filtrer par catégorie BSC", dim_kpis['bsc_category'].dropna().unique())
-    sust_filter = st.selectbox("Durable uniquement ?", ["Tous", "Oui uniquement", "Non uniquement"])
 
 # Merge noms KPIs
 fact_links = fact_links.merge(dim_kpis[['kpi_id', 'kpi_name']], left_on='From_id', right_on='kpi_id', how='left').rename(columns={'kpi_name': 'kpi_from_name'})
