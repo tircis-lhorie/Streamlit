@@ -2,46 +2,55 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 
-# --- Chargement des données ---
-df = pd.read_csv("data/fact_data.csv", sep=";")
+# Chargement des données
+fact_data = pd.read_csv("data/fact_data.csv", sep=";")
+fact_data["Measure Date"] = pd.to_datetime(fact_data["Measure Date"])
 
-# --- Nettoyage / parsing ---
-df['Measure Date'] = pd.to_datetime(df['Measure Date'], errors='coerce')
-df = df.dropna(subset=['Measure Date'])  # sécurité si erreur de parsing
+# Titre de la page
+st.title("Dashboard de performance")
 
-# --- Titre ---
-st.title("Dashboard de KPIs")
-st.markdown("Visualisez les mesures temporelles de vos indicateurs de performance.")
+# Sélection du KPI (en haut de la page)
+selected_kpi = st.selectbox("Sélectionnez un KPI", fact_data["kpi_name"].unique())
 
-# --- Filtres ---
+# Filtres dans la barre latérale
 with st.sidebar:
-    st.header("Filtres")
-    selected_kpis = st.multiselect("KPIs à afficher", df['kpi_name'].unique(), default=df['kpi_name'].unique()[:5])
-    date_range = st.date_input("Période", [df['Measure Date'].min(), df['Measure Date'].max()])
+    st.subheader("Filtres")
+    date_range = st.date_input(
+        "Période",
+        value=[fact_data["Measure Date"].min(), fact_data["Measure Date"].max()]
+    )
+    agg_method = st.selectbox("Méthode d'agrégation", ["Moyenne", "Somme", "Max", "Min"])
 
-# --- Application des filtres ---
-start_date, end_date = date_range
-filtered_df = df[
-    (df['kpi_name'].isin(selected_kpis)) &
-    (df['Measure Date'] >= pd.to_datetime(start_date)) &
-    (df['Measure Date'] <= pd.to_datetime(end_date))
+# Filtrage
+filtered = fact_data[
+    (fact_data["kpi_name"] == selected_kpi) &
+    (fact_data["Measure Date"] >= pd.to_datetime(date_range[0])) &
+    (fact_data["Measure Date"] <= pd.to_datetime(date_range[1]))
 ]
 
-# --- Graphique évolutif ---
-st.subheader("Évolution temporelle")
-chart = alt.Chart(filtered_df).mark_line(point=True).encode(
-    x='Measure Date:T',
-    y='Measure:Q',
-    color='kpi_name:N',
-    tooltip=['kpi_name', 'Measure', 'Measure Date']
-).properties(height=400, width=700)
+# Agrégation
+if agg_method == "Moyenne":
+    agg_df = filtered.groupby("Measure Date")["Measure"].mean().reset_index()
+elif agg_method == "Somme":
+    agg_df = filtered.groupby("Measure Date")["Measure"].sum().reset_index()
+elif agg_method == "Max":
+    agg_df = filtered.groupby("Measure Date")["Measure"].max().reset_index()
+else:
+    agg_df = filtered.groupby("Measure Date")["Measure"].min().reset_index()
 
-st.altair_chart(chart, use_container_width=True)
+# Graphique
+st.altair_chart(
+    alt.Chart(agg_df)
+    .mark_line(point=True)
+    .encode(
+        x="Measure Date:T",
+        y="Measure:Q",
+        tooltip=["Measure Date", "Measure"]
+    )
+    .properties(height=400, title=selected_kpi),
+    use_container_width=True
+)
 
-# --- Tableau ---
-st.subheader("Tableau des données")
-st.dataframe(filtered_df.sort_values(by="Measure Date"), use_container_width=True)
-
-# --- Export CSV ---
-csv = filtered_df.to_csv(index=False).encode('utf-8')
-st.download_button("📥 Télécharger les données filtrées", data=csv, file_name="report_kpis.csv", mime="text/csv")
+# Tableau
+st.subheader("Données sources")
+st.dataframe(agg_df)
