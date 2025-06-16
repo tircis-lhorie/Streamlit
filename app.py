@@ -33,7 +33,8 @@ if not st.session_state.authenticated:
 
 # --- Interface Streamlit ---
 st.set_page_config(page_title="TIRCIS Dashboard", layout="wide")
+st.sidebar.image("image/logo.png", use_container_width=True)
+
 st.title("Bienvenue")
 st.markdown("Bienvenue sur votre espace TIRCIS.")
 
-st.sidebar.image("image/logo.png", use_container_width=True)
