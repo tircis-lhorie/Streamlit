@@ -33,10 +33,11 @@ st.set_page_config(page_title="TIRCIS Dashboard", layout="wide")
 st.title("\U0001F9E0 Visualisation des causalités entre KPIs")
 
 col1, col2, col3, col4 = st.columns(4)
-bsc_view = col1.checkbox("Vue BSC", value=True)
-signs_on = col2.checkbox("Afficher les signes", value=True)
-sust_on = col3.checkbox("Colorer durabilité", value=True)
-weights_on = col4.checkbox("Épaisseur selon poids", value=True)
+bsc_view = col1.toggle("Vue BSC", value=True)
+signs_on = col2.toggle("Afficher les signes", value=True)
+sust_on = col3.toggle("Colorer durabilité", value=True)
+weights_on = col4.toggle("Épaisseur selon poids", value=True)
+
 
 # Filtres supplémentaires
 with st.sidebar:
