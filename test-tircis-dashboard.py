@@ -25,6 +25,24 @@ def adjust_arrow_positions(start_pos, end_pos, node_radius):
 dim_kpis = pd.read_csv("dim_kpis.csv")
 fact_links = pd.read_csv("fact_links.csv")
 
+
+
+# Exemple : afficher les 10 liens les plus forts
+fact_links = fact_links.sort_values(by="weight", ascending=False).head(10)
+
+plt.figure(figsize=(10, 6))
+plt.barh(fact_links['From'] + " ➜ " + fact_links['To'], fact_links['weight'])
+plt.xlabel("Poids du lien")
+plt.title("Liens causaux principaux")
+plt.gca().invert_yaxis()
+plt.show()
+
+
+
+
+
+
+"""
 fact_links = fact_links[fact_links["weight"] > 0]
 
 # --- Interface Streamlit ---
@@ -58,15 +76,7 @@ elif sust_filter == "Non uniquement":
 
 
 
-# Exemple : afficher les 10 liens les plus forts
-fact_links = fact_links.sort_values(by="weight", ascending=False).head(10)
 
-plt.figure(figsize=(10, 6))
-plt.barh(fact_links['From'] + " ➜ " + fact_links['To'], fact_links['weight'])
-plt.xlabel("Poids du lien")
-plt.title("Liens causaux principaux")
-plt.gca().invert_yaxis()
-plt.show()
 
 
 
@@ -149,3 +159,5 @@ def fig_to_bytes(fig):
     buf = io.BytesIO()
     fig.savefig(buf, format="png")
     return buf.getvalue()
+
+"""
