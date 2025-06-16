@@ -7,20 +7,25 @@ from matplotlib.patches import FancyArrowPatch
 
 # --- Interface Streamlit ---
 st.set_page_config(page_title="TIRCIS Dashboard", layout="wide")
+st.title("Bienvenue")
+st.markdown("Bienvenue sur votre espace TIRCIS.")
 
 page = st.sidebar.selectbox("Navigation", ["Accueil", "Graphe de Causalité", "Dashboard de KPIs"])
 
-if page == "Accueil":
-    st.title("Bienvenue")
-    st.markdown("Bienvenue sur votre espace TIRCIS.")
-elif page == "Graphe de Causalité":
-    st.title("Graphe de causalité")
-    st.markdown("Cette page vous permet d'explorer les relations de causalité de manière graphique.")
-elif page == "Dashboard de KPIs":
-    st.title("Dashboard de KPIs")
-    st.markdown("Cette page vous permet d'explorer les KPIs de votre entreprise.")
+# Sidebar
+#st.sidebar.image("Logo Linkedin.png", width=150)
+st.sidebar.subheader("About This App")
+st.sidebar.info(
+    """
+    Cette application permet de visualiser les liens de causalité entre les indicateurs de performance (KPIs) 
+    d'une organisation. 
 
+    Le graphe représente les KPIs comme des nœuds, reliés entre eux par des flèches indiquant des relations causales 
+    identifiées statistiquement.
 
+    Utilisez les filtres pour explorer les indicateurs par catégorie BSC, durabilité, ou poids du lien.
+    """
+)
 
 
 # --- Fonctions utilitaires ---
@@ -48,20 +53,7 @@ fact_links = fact_links[fact_links["weight"] > 0]
 
 
 
-# Sidebar
-st.sidebar.image("Logo Linkedin.png", width=150)
-st.sidebar.subheader("About This App")
-st.sidebar.info(
-    """
-    Cette application permet de visualiser les liens de causalité entre les indicateurs de performance (KPIs) 
-    d'une organisation. 
 
-    Le graphe représente les KPIs comme des nœuds, reliés entre eux par des flèches indiquant des relations causales 
-    identifiées statistiquement.
-
-    Utilisez les filtres pour explorer les indicateurs par catégorie BSC, durabilité, ou poids du lien.
-    """
-)
 
 # Filtres Sidebar
 with st.sidebar:
