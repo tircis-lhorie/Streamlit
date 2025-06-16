@@ -1,5 +1,4 @@
 # app.py
-
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -44,7 +43,6 @@ plt.show()
 
 
 
-"""
 fact_links = fact_links[fact_links["weight"] > 0]
 
 # --- Interface Streamlit ---
@@ -162,4 +160,3 @@ def fig_to_bytes(fig):
     fig.savefig(buf, format="png")
     return buf.getvalue()
 
-"""
