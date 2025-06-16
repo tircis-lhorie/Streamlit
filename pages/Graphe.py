@@ -5,16 +5,6 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch
 import io
 
-# Fonction export PNG
-
-def fig_to_bytes(fig):
-    buf = io.BytesIO()
-    fig.savefig(buf, format="png", bbox_inches="tight")
-    return buf.getvalue()
-
-
-
-
 st.sidebar.subheader("About This App")
 st.sidebar.info(
     """
@@ -193,12 +183,3 @@ else:
 ax.axis('off')
 plt.tight_layout()
 st.pyplot(fig)
-
-# Export
-st.download_button("🔍 Télécharger le graphe PNG", data=fig_to_bytes(fig), file_name="kpi_graph.png")
-
-# Tableau
-st.subheader("📊 Tableau des liens causaux")
-st.dataframe(fact_links[['kpi_from_name', 'kpi_to_name', 'weight', 'sign', 'granger p-val', 'urgency']])
-
-
