@@ -11,7 +11,7 @@ st.title("\U0001F9E0 Visualisation des causalités entre KPIs")
 st.markdown("This app visualizes causal analysis between KPIs of Northwind data.")
 
 
-page = st.sidebar.selectbox("Navigation", ["Accueil", "Graphe", "Tableau"])
+page = st.sidebar.selectbox("Navigation", ["Accueil", "Graphe de Causalité", "Dashboard de KPIs"])
 
 if page == "Accueil":
     st.title("Bienvenue")
