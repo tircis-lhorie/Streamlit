@@ -1,68 +1,39 @@
 import streamlit as st
 import pandas as pd
-import altair as alt
+import matplotlib.pyplot as plt
 
-# Chargement des données
+# --- Chargement des données ---
 fact_data = pd.read_csv("data/fact_data.csv", sep=";")
-fact_data["Measure Date"] = pd.to_datetime(fact_data["Measure Date"])
-
-
-# Titre de la page
-st.title("Dashboard de performance")
-
-# Sélection du KPI (en haut de la page)
-selected_kpi = st.selectbox("Sélectionnez un KPI", fact_data["kpi_name"].unique())
-
-# Filtres dans la barre latérale
-
-# Extraire les années uniques
+fact_data["Measure Date"] = pd.to_datetime(fact_data["Measure Date"], dayfirst=True)
 fact_data["Year"] = fact_data["Measure Date"].dt.year
-years = sorted(fact_data["Year"].unique())
 
-# Ajouter le filtre dans la sidebar
-selected_years = st.sidebar.multiselect("Années", options=years, default=years)
-
-# Appliquer le filtre
-fact_data = fact_data[fact_data["Year"].isin(selected_years)]
-
+# --- Filtres (dans la sidebar) ---
 with st.sidebar:
-    st.subheader("Filtres")
-    date_range = st.date_input(
-        "Période",
-        value=[fact_data["Measure Date"].min(), fact_data["Measure Date"].max()]
-    )
-    agg_method = st.selectbox("Méthode d'agrégation", ["Moyenne", "Somme", "Max", "Min"])
+    st.header("Filtres")
 
-# Filtrage
-filtered = fact_data[
+    kpi_options = fact_data["kpi_name"].unique()
+    selected_kpi = st.selectbox("Sélectionner un KPI", options=kpi_options)
+
+    years = sorted(fact_data["Year"].unique())
+    selected_years = st.multiselect("Années", options=years, default=years)
+
+    min_date = fact_data["Measure Date"].min()
+    max_date = fact_data["Measure Date"].max()
+    date_range = st.date_input("Période", value=[min_date, max_date])
+
+# --- Filtrage des données ---
+filtered_data = fact_data[
     (fact_data["kpi_name"] == selected_kpi) &
+    (fact_data["Year"].isin(selected_years)) &
     (fact_data["Measure Date"] >= pd.to_datetime(date_range[0])) &
     (fact_data["Measure Date"] <= pd.to_datetime(date_range[1]))
 ]
 
-# Agrégation
-if agg_method == "Moyenne":
-    agg_df = filtered.groupby("Measure Date")["Measure"].mean().reset_index()
-elif agg_method == "Somme":
-    agg_df = filtered.groupby("Measure Date")["Measure"].sum().reset_index()
-elif agg_method == "Max":
-    agg_df = filtered.groupby("Measure Date")["Measure"].max().reset_index()
-else:
-    agg_df = filtered.groupby("Measure Date")["Measure"].min().reset_index()
+# --- En-tête page ---
+st.title("Dashboard de KPIs")
+st.markdown(f"### KPI sélectionné : {selected_kpi}")
 
-# Graphique
-st.altair_chart(
-    alt.Chart(agg_df)
-    .mark_line(point=True)
-    .encode(
-        x="Measure Date:T",
-        y="Measure:Q",
-        tooltip=["Measure Date", "Measure"]
-    )
-    .properties(height=400, title=selected_kpi),
-    use_container_width=True
-)
-
-# Tableau
-st.subheader("Données sources")
-st.dataframe(agg_df)
+# --- Indicateurs clés ---
+col1, col2 = st.columns(2)
+with col1:
+    st.metric("Valeur moyenne", f"{filtered_data_
