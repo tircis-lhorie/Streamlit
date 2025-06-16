@@ -5,6 +5,18 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch
 
+
+page = st.sidebar.selectbox("Navigation", ["Accueil", "Graphe", "Tableau"])
+
+if page == "Accueil":
+    st.title("Bienvenue")
+elif page == "Graphe":
+    st.title("Graphe de causalité")
+
+
+
+
+
 # --- Fonctions utilitaires ---
 def format_label(label):
     return label.replace(' ', '\n')
