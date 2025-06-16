@@ -10,8 +10,6 @@ st.set_page_config(page_title="TIRCIS Dashboard", layout="wide")
 st.title("Bienvenue")
 st.markdown("Bienvenue sur votre espace TIRCIS.")
 
-page = st.sidebar.selectbox("Navigation", ["Accueil", "Graphe de Causalité", "Dashboard de KPIs"])
-
 # Afficher le logo dans le coin supérieur gauche
 st.markdown(
     """
@@ -27,3 +25,7 @@ st.markdown(
 )
 
 st.sidebar.image("image/logo.png", use_container_width=True)
+
+
+page = st.sidebar.selectbox("Navigation", ["Accueil", "Graphe de Causalité", "Dashboard de KPIs"])
+
