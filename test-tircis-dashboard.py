@@ -24,26 +24,12 @@ def adjust_arrow_positions(start_pos, end_pos, node_radius):
 dim_kpis = pd.read_csv("dim_kpis.csv", sep=";")
 fact_links = pd.read_csv("fact_links.csv", sep=";")
 
-
-
-# Exemple Graph 1: afficher les 10 liens les plus forts
-fact_links = fact_links.sort_values(by="weight", ascending=False).head(10)
-
-plt.figure(figsize=(10, 6))
-plt.barh(fact_links['From'] + " ➜ " + fact_links['To'], fact_links['weight'])
-plt.xlabel("Poids du lien")
-plt.title("Liens causaux principaux")
-plt.gca().invert_yaxis()
-plt.show()
-
-
-
-
-
-
 fact_links = fact_links[fact_links["weight"] > 0]
 
+
+
 # --- Interface Streamlit ---
+st.set_page_config(page_title="TIRCIS Dashboard", layout="wide")
 st.title("\U0001F9E0 Visualisation des causalités entre KPIs")
 
 col1, col2, col3, col4 = st.columns(4)
@@ -70,12 +56,6 @@ if sust_filter == "Oui uniquement":
     fact_links = fact_links[(fact_links['kpi_from_is_sust'] == 'Yes') | (fact_links['kpi_to_is_sust'] == 'Yes')]
 elif sust_filter == "Non uniquement":
     fact_links = fact_links[(fact_links['kpi_from_is_sust'] == 'No') & (fact_links['kpi_to_is_sust'] == 'No')]
-
-
-
-
-
-
 
 
 
