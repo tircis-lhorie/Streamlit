@@ -7,8 +7,9 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch
 import io
 
-st.sidebar.subheader("About This App")
-st.sidebar.info(
+
+#st.sidebar.subheader("About This App")
+#st.sidebar.info(
     """
     Cette application permet de visualiser les liens de causalité entre les indicateurs de performance (KPIs) 
     d'une organisation. 
@@ -16,8 +17,7 @@ st.sidebar.info(
     identifiées statistiquement.
     Utilisez les filtres pour explorer les indicateurs par catégorie BSC, durabilité, ou poids du lien.
     """
-)
-
+#)
 
 
 # --- Fonctions utilitaires ---
