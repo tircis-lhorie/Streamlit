@@ -5,6 +5,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch
 
+# --- Interface Streamlit ---
+st.set_page_config(page_title="TIRCIS Dashboard", layout="wide")
+st.title("\U0001F9E0 Visualisation des causalités entre KPIs")
+st.markdown("This app visualizes causal analysis between KPIs of Northwind data.")
+
 
 page = st.sidebar.selectbox("Navigation", ["Accueil", "Graphe", "Tableau"])
 
@@ -40,10 +45,6 @@ fact_links = fact_links[fact_links["weight"] > 0]
 
 
 
-# --- Interface Streamlit ---
-st.set_page_config(page_title="TIRCIS Dashboard", layout="wide")
-st.title("\U0001F9E0 Visualisation des causalités entre KPIs")
-st.markdown("This app visualizes causal analysis between KPIs of Northwind data.")
 
 
 # Sidebar
