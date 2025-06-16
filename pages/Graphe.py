@@ -1,5 +1,3 @@
-# app.py
-
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -7,9 +5,18 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch
 import io
 
+# Fonction export PNG
 
-#st.sidebar.subheader("About This App")
-#st.sidebar.info(
+def fig_to_bytes(fig):
+    buf = io.BytesIO()
+    fig.savefig(buf, format="png", bbox_inches="tight")
+    return buf.getvalue()
+
+
+
+
+st.sidebar.subheader("About This App")
+st.sidebar.info(
     """
     Cette application permet de visualiser les liens de causalité entre les indicateurs de performance (KPIs) 
     d'une organisation. 
@@ -17,7 +24,7 @@ import io
     identifiées statistiquement.
     Utilisez les filtres pour explorer les indicateurs par catégorie BSC, durabilité, ou poids du lien.
     """
-#)
+)
 
 
 # --- Fonctions utilitaires ---
@@ -194,9 +201,4 @@ st.download_button("🔍 Télécharger le graphe PNG", data=fig_to_bytes(fig), f
 st.subheader("📊 Tableau des liens causaux")
 st.dataframe(fact_links[['kpi_from_name', 'kpi_to_name', 'weight', 'sign', 'granger p-val', 'urgency']])
 
-# Fonction export PNG
 
-def fig_to_bytes(fig):
-    buf = io.BytesIO()
-    fig.savefig(buf, format="png", bbox_inches="tight")
-    return buf.getvalue()
