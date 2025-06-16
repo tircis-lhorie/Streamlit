@@ -47,11 +47,62 @@ with st.sidebar:
     bsc_filter = st.multiselect("Filtrer par catégorie BSC", dim_kpis['bsc_category'].dropna().unique())
     sust_filter = st.selectbox("Durable uniquement ?", ["Tous", "Oui uniquement", "Non uniquement"])
 
+# --- CSS pour style bouton sélectionné + hover ---
+st.markdown("""
+<style>
+button[kind="secondary"] {
+    border: 1px solid #FFA500 !important;
+    color: #FFA500 !important;
+    background-color: white !important;
+    transition: 0.2s;
+}
+button[kind="secondary"]:hover {
+    background-color: #fff5e6 !important;
+}
+button[kind="secondary"].active {
+    background-color: #FFA500 !important;
+    color: white !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# --- Initialiser les filtres dans la session ---
+for key, default in {
+    "bsc_view": False,
+    "signs_on": False,
+    "sust_on": True,
+    "weights_on": False
+}.items():
+    if key not in st.session_state:
+        st.session_state[key] = default
+
+# --- Fonction pour afficher un bouton stylé ---
+def filter_button(label, key):
+    active = st.session_state[key]
+    btn = st.button(label, key=key+"_btn")
+    if btn:
+        st.session_state[key] = not active
+    # Afficher le bouton comme actif avec JS (via CSS class)
+    if st.session_state[key]:
+        st.markdown(f"<style>div[data-testid='stButton'][data-key='{key}_btn'] button{{background-color: #FFA500 !important; color: white !important;}}</style>", unsafe_allow_html=True)
+
+# --- Affichage en 4 colonnes ---
 col1, col2, col3, col4 = st.columns(4)
-bsc_view = col1.toggle("Vue BSC", value=False)
-signs_on = col2.toggle("Afficher les signes", value=False)
-sust_on = col3.toggle("Colorer durabilité", value=True)
-weights_on = col4.toggle("Épaisseur selon poids", value=False)
+with col1:
+    filter_button("Vue BSC", "bsc_view")
+with col2:
+    filter_button("Afficher les signes", "signs_on")
+with col3:
+    filter_button("Colorer durabilité", "sust_on")
+with col4:
+    filter_button("Épaisseur selon poids", "weights_on")
+
+# --- Utilisation dans ton code ---
+bsc_view = st.session_state["bsc_view"]
+signs_on = st.session_state["signs_on"]
+sust_on = st.session_state["sust_on"]
+weights_on = st.session_state["weights_on"]
+
 
 # Merge noms KPIs
 fact_links = fact_links.merge(dim_kpis[['kpi_id', 'kpi_name']], left_on='From_id', right_on='kpi_id', how='left').rename(columns={'kpi_name': 'kpi_from_name'})
