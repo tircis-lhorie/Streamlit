@@ -1,12 +1,11 @@
+# app.py
+
 import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch
-
-st.title("Graphe de causalité")
-st.markdown("Explorez les effets de causalités entre les KPIs de votre entreprise !")
-
+import io
 
 # --- Fonctions utilitaires ---
 def format_label(label):
@@ -26,24 +25,20 @@ def adjust_arrow_positions(start_pos, end_pos, node_radius):
 # --- Chargement des données ---
 dim_kpis = pd.read_csv("data/dim_kpis.csv", sep=";")
 fact_links = pd.read_csv("data/fact_links.csv", sep=";")
-
 fact_links = fact_links[fact_links["weight"] > 0]
-
-
 
 # Filtres Sidebar
 with st.sidebar:
+    st.image("images/mon_logo.png", width=150)
     st.header("Filtres avancés")
     bsc_filter = st.multiselect("Filtrer par catégorie BSC", dim_kpis['bsc_category'].dropna().unique())
     sust_filter = st.selectbox("Durable uniquement ?", ["Tous", "Oui uniquement", "Non uniquement"])
-
 
 col1, col2, col3, col4 = st.columns(4)
 bsc_view = col1.toggle("Vue BSC", value=False)
 signs_on = col2.toggle("Afficher les signes", value=False)
 sust_on = col3.toggle("Colorer durabilité", value=True)
 weights_on = col4.toggle("Épaisseur selon poids", value=False)
-
 
 # Merge noms KPIs
 fact_links = fact_links.merge(dim_kpis[['kpi_id', 'kpi_name']], left_on='From_id', right_on='kpi_id', how='left').rename(columns={'kpi_name': 'kpi_from_name'})
@@ -52,13 +47,10 @@ fact_links = fact_links.merge(dim_kpis[['kpi_id', 'kpi_name']], left_on='To_id',
 # Appliquer les filtres
 if bsc_filter:
     fact_links = fact_links[fact_links['bsc_from_cat'].isin(bsc_filter) | fact_links['bsc_to_cat'].isin(bsc_filter)]
-
 if sust_filter == "Oui uniquement":
     fact_links = fact_links[(fact_links['kpi_from_is_sust'] == 'Yes') | (fact_links['kpi_to_is_sust'] == 'Yes')]
 elif sust_filter == "Non uniquement":
     fact_links = fact_links[(fact_links['kpi_from_is_sust'] == 'No') & (fact_links['kpi_to_is_sust'] == 'No')]
-
-
 
 # Données pour le graphe
 kpi_from_list = fact_links['kpi_from_name'].tolist()
@@ -100,7 +92,7 @@ if sust_on:
 # Arêtes
 edges = [(row['kpi_from_name'], row['kpi_to_name'], row['weight'], row['sign']) for _, row in fact_links.iterrows()]
 edge_widths = [2 + (w * 4 / 10) if weights_on else 2 for _, _, w, _ in edges]
-edge_labels = {(s, e): '+' if sign == 'Positive' else '-' for s, e, _, sign in edges}
+edge_labels = {(s, e): '+' if sign == 'Positive' else '-' for s, e, _, sign in edges]
 
 # Affichage graphique
 fig, ax = plt.subplots(figsize=(18, 11))
@@ -120,21 +112,27 @@ if signs_on:
         mid_y = (nodes_position[start][1] + nodes_position[end][1]) / 2
         ax.text(mid_x, mid_y, label, fontsize=16, bbox=dict(facecolor='white', edgecolor='none'), ha='center', va='center')
 
-ax.set_xlim(-1.5, 4 if bsc_view else 1.5)
-ax.set_ylim(0, 12 if bsc_view else 1.5)
+if bsc_view:
+    ax.set_xlim(0, 4)
+    ax.set_ylim(0, 13)
+else:
+    ax.set_xlim(-1.7, 1.7)
+    ax.set_ylim(-1.7, 1.7)
+
 ax.axis('off')
+plt.tight_layout()
 st.pyplot(fig)
 
 # Export
 st.download_button("🔍 Télécharger le graphe PNG", data=fig_to_bytes(fig), file_name="kpi_graph.png")
 
-# Table
+# Tableau
 st.subheader("📊 Tableau des liens causaux")
 st.dataframe(fact_links[['kpi_from_name', 'kpi_to_name', 'weight', 'sign', 'granger p-val', 'urgency']])
 
-# Fonction pour convertir figure matplotlib en bytes
-import io
+# Fonction export PNG
+
 def fig_to_bytes(fig):
     buf = io.BytesIO()
-    fig.savefig(buf, format="png")
+    fig.savefig(buf, format="png", bbox_inches="tight")
     return buf.getvalue()
