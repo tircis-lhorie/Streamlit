@@ -1,7 +1,7 @@
 
 [theme]
 primaryColor = "#EA7A05"          # Orange
-backgroundColor = "#FFFFF0"       # Blanc
+backgroundColor = "#F0F0F0"       # Blanc cassé
 secondaryBackgroundColor = "#F5F5F5"  # Gris très clair
 textColor = "#262730"             # Gris foncé
 font = "sans serif"               # ou "monospace", "serif"
