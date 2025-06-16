@@ -7,6 +7,19 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch
 import io
 
+st.sidebar.subheader("About This App")
+st.sidebar.info(
+    """
+    Cette application permet de visualiser les liens de causalité entre les indicateurs de performance (KPIs) 
+    d'une organisation. 
+    Le graphe représente les KPIs comme des nœuds, reliés entre eux par des flèches indiquant des relations causales 
+    identifiées statistiquement.
+    Utilisez les filtres pour explorer les indicateurs par catégorie BSC, durabilité, ou poids du lien.
+    """
+)
+
+
+
 # --- Fonctions utilitaires ---
 def format_label(label):
     return label.replace(' ', '\n')
