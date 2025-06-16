@@ -7,17 +7,21 @@ from matplotlib.patches import FancyArrowPatch
 
 # --- Interface Streamlit ---
 st.set_page_config(page_title="TIRCIS Dashboard", layout="wide")
-st.title("\U0001F9E0 Visualisation des causalités entre KPIs")
-st.markdown("This app visualizes causal analysis between KPIs of Northwind data.")
 
 page = st.sidebar.selectbox("Navigation", ["Accueil", "Graphe de Causalité", "Dashboard de KPIs"])
 
 if page == "Accueil":
     st.title("Bienvenue")
+    st.markdown("Bienvenue sur votre espace TIRCIS.")
 elif page == "Graphe de Causalité":
     st.title("Graphe de causalité")
+    st.markdown("Cette page vous permet d'explorer les relations de causalité de manière graphique.")
 elif page == "Dashboard de KPIs":
     st.title("Dashboard de KPIs")
+    st.markdown("Cette page vous permet d'explorer les KPIs de votre entreprise.")
+
+
+
 
 # --- Fonctions utilitaires ---
 def format_label(label):
