@@ -37,14 +37,3 @@ st.sidebar.image("image/logo.png", use_container_width=True)
 
 st.title("Bienvenue")
 st.markdown("Bienvenue sur votre espace TIRCIS.")
-
-#theme
-hide_st_style=""" 
-
-<style>
-#MainMenu {visibility:hidden;}
-footer {visibility:hidden;}
-header {visibility:hidden;}
-</style>
-"""
-
