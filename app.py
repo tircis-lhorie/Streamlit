@@ -7,8 +7,8 @@ from matplotlib.patches import FancyArrowPatch
 
 # --- Configuration utilisateur simple ---
 USERS = {
-    "corentin.burnay@unamur.be": "NW%123",  
-    "lhorie.pirnay@unamur.be": "NW%123"
+    "corentin.burnay@unamur.be": "1234",  
+    "lhorie.pirnay@unamur.be": "1234"
 }
 
 # --- Session pour savoir si l'utilisateur est authentifié ---
@@ -17,12 +17,12 @@ if "authenticated" not in st.session_state:
 
 def login():
     st.title("🔐 Connexion requise")
-    username = st.text_input("Nom d'utilisateur")
-    password = st.text_input("Mot de passe", type="password")
+    username = st.text_input("Adresse email")
+    password = st.text_input("Code PIN", type="password")
     if st.button("Se connecter"):
         if username in USERS and USERS[username] == password:
             st.session_state.authenticated = True
-            st.experimental_rerun()
+            st.rerun()
         else:
             st.error("Identifiants incorrects.")
 
