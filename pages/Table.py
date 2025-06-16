@@ -41,6 +41,40 @@ if sign_filter != "Tous":
 
 fact_links = fact_links[fact_links['weight'] >= min_weight]
 
+
+# --- KPIs synthétiques ---
+
+# Top 3 causes les plus fréquentes
+top_causes = fact_links['kpi_from_name'].value_counts().head(3)
+
+# Top 3 effets les plus fréquemment impactés
+top_effects = fact_links['kpi_to_name'].value_counts().head(3)
+
+# Top 3 relations les plus fortes (en poids)
+top_weights = fact_links.sort_values(by='weight', ascending=False).head(3)[
+    ['kpi_from_name', 'kpi_to_name', 'weight']
+]
+
+# Affichage en 3 colonnes
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.subheader("🔥 Top 3 causes")
+    for kpi, count in top_causes.items():
+        st.markdown(f"• **{kpi}** ({count} liens)")
+
+with col2:
+    st.subheader("🎯 Top 3 effets")
+    for kpi, count in top_effects.items():
+        st.markdown(f"• **{kpi}** ({count} liens)")
+
+with col3:
+    st.subheader("⚖️ Top 3 liens (poids)")
+    for _, row in top_weights.iterrows():
+        st.markdown(f"• **{row['kpi_from_name']} ➜ {row['kpi_to_name']}** ({row['weight']:.2f})")
+
+
+
 # --- Affichage du tableau ---
 st.dataframe(
     fact_links[[
