@@ -26,9 +26,7 @@ fact_links = pd.read_csv("fact_links.csv", sep=";")
 
 
 
-# Exemple : afficher les 10 liens les plus forts
-print(fact_links.columns.tolist())
-
+# Exemple Graph 1: afficher les 10 liens les plus forts
 fact_links = fact_links.sort_values(by="weight", ascending=False).head(10)
 
 plt.figure(figsize=(10, 6))
