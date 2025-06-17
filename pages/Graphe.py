@@ -153,7 +153,7 @@ if sust_on:
 # Arêtes
 edges = [(row['kpi_from_name'], row['kpi_to_name'], row['weight'], row['sign']) for _, row in fact_links.iterrows()]
 edge_widths = [2 + (w * 4 / 10) if weights_on else 2 for _, _, w, _ in edges]
-edge_labels = {(s, e): '+' if sign == 'Positive' else '-' for s, e, _, sign in edges]
+edge_labels = {(s, e): '+' if sign == 'Positive' else '-' for s, e, _, sign in edges}
 
 # Affichage graphique
 fig, ax = plt.subplots(figsize=(18, 11))
