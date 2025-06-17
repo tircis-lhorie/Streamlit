@@ -48,6 +48,8 @@ def login():
 
     with st.container():
         col1, col2, col3 = st.columns([1,2,1])
+        with col1: st.image("image/moving_icon.gif")
+            
         with col2:
             st.markdown('<div class="centered-container">', unsafe_allow_html=True)
             st.title("Connexion requise")
