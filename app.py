@@ -5,47 +5,58 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch
 
-# --- CSS pour le style des cases ---
-st.markdown("""
-    <style>
-    .pin-input input {
-        font-size: 32px;
-        text-align: center;
-        border: 2px solid #ccc;
-        border-radius: 8px;
-        width: 60px;
-        height: 60px;
-        margin-right: 10px;
-    }
-    </style>
-""", unsafe_allow_html=True)
-
-# --- Création de 4 cases côte à côte ---
-st.title("🔐 Entrer le code PIN")
-
-cols = st.columns(4)
-pin_digits = []
-
-for i, col in enumerate(cols):
-    with col:
-        digit = st.text_input(f"", max_chars=1, key=f"digit_{i}", type="password", label_visibility="collapsed")
-        pin_digits.append(digit)
-
-# --- Validation du PIN ---
-entered_pin = "".join(pin_digits)
+# --- Liste des PIN autorisés ---
 AUTHORIZED_PINS = {"1234", "5678"}
 
-if st.button("Valider"):
-    if entered_pin in AUTHORIZED_PINS:
-        st.success("PIN correct ✅")
-        st.session_state.authenticated = True
-        st.rerun()
-    else:
-        st.error("PIN incorrect ❌")
+# --- Initialiser session ---
+if "authenticated" not in st.session_state:
+    st.session_state.authenticated = False
 
-# --- Blocage si pas encore connecté ---
-if "authenticated" not in st.session_state or not st.session_state.authenticated:
+# --- Si non authentifié, afficher la page de login ---
+if not st.session_state.authenticated:
+    st.title("🔐 Entrez votre code PIN")
+
+    col1, col2, col3, col4 = st.columns(4)
+    pin_digits = []
+    for i, col in enumerate([col1, col2, col3, col4]):
+        with col:
+            digit = st.text_input(
+                label="",
+                max_chars=1,
+                key=f"digit_{i}",
+                type="password",
+                label_visibility="collapsed"
+            )
+            pin_digits.append(digit)
+
+    # JavaScript : focus auto (injecté après les champs)
+    st.components.v1.html("""
+        <script>
+        const inputs = window.parent.document.querySelectorAll('input[type="password"]');
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', () => {
+                if (input.value.length === 1 && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            });
+        });
+        </script>
+    """, height=0)
+
+    # --- Validation du PIN ---
+    pin_entered = "".join(pin_digits)
+
+    if st.button("Valider"):
+        if pin_entered in AUTHORIZED_PINS:
+            st.success("Accès autorisé ✅")
+            st.session_state.authenticated = True
+            st.rerun()
+        else:
+            st.error("Code PIN incorrect ❌")
     st.stop()
+
+# --- Si authentifié, continuer ---
+st.success("Bienvenue ! Vous êtes connecté 🔓")
 
 
 # --- Interface Streamlit ---
