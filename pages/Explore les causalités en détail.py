@@ -33,8 +33,10 @@ if sign_filter != "Tous":
 
 fact_links = fact_links[fact_links['weight'] >= min_weight]
 
-# --- Préparation du tableau exportable ---
-export_df = fact_links[[
+
+
+# --- Préparation du tableau filtré ---
+filtered_df = fact_links[[
     'kpi_from_name', 'kpi_to_name', 'sign', 'weight',
     'granger p-val', 'granger F-stat', 'type_of_comfirming_analysis',
     'urgency', 'duration', 'granularity'
@@ -51,16 +53,46 @@ export_df = fact_links[[
     'granularity': 'Granularité'
 })
 
-# --- Conversion en CSV (bytes) ---
-csv = export_df.to_csv(index=False).encode('utf-8')
+# --- Chargement des données complètes (non filtrées) ---
+all_links = pd.read_csv("data/fact_links.csv", sep=";")
+all_links = all_links.merge(dim_kpis[['kpi_id', 'kpi_name']], left_on='From_id', right_on='kpi_id', how='left').rename(columns={'kpi_name': 'KPI Source'})
+all_links = all_links.merge(dim_kpis[['kpi_id', 'kpi_name']], left_on='To_id', right_on='kpi_id', how='left').rename(columns={'kpi_name': 'KPI Cible'})
+all_links_export = all_links[[
+    'KPI Source', 'KPI Cible', 'sign', 'weight',
+    'granger p-val', 'granger F-stat', 'type_of_comfirming_analysis',
+    'urgency', 'duration', 'granularity'
+]].rename(columns={
+    'sign': 'Signe',
+    'weight': 'Poids',
+    'granger p-val': 'p-valeur',
+    'granger F-stat': 'F-stat',
+    'type_of_comfirming_analysis': 'Méthode',
+    'urgency': 'Urgence',
+    'duration': 'Durée',
+    'granularity': 'Granularité'
+})
 
-# --- Bouton de téléchargement ---
-st.download_button(
-    label="📥 Télécharger les données filtrées (CSV)",
-    data=csv,
-    file_name='liens_causaux_kpis.csv',
-    mime='text/csv'
-)
+# --- Conversion en CSV ---
+filtered_csv = filtered_df.to_csv(index=False).encode("utf-8")
+all_csv = all_links_export.to_csv(index=False).encode("utf-8")
+
+# --- Affichage côte à côte ---
+col1, col2 = st.columns(2)
+with col1:
+    st.download_button(
+        label="📥 Télécharger les données filtrées",
+        data=filtered_csv,
+        file_name="liens_kpis_filtrés.csv",
+        mime="text/csv"
+    )
+with col2:
+    st.download_button(
+        label="📁 Télécharger toutes les données",
+        data=all_csv,
+        file_name="liens_kpis_complets.csv",
+        mime="text/csv"
+    )
+
 
 
 
