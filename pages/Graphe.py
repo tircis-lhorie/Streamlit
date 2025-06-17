@@ -9,8 +9,8 @@ st.sidebar.subheader("About This App")
 st.markdown("""
     <style>
     section[data-testid="stSidebar"] .element-container:has(.stAlert) {
-        background-color: #FFF3CD;  /* couleur de fond */
-        border: 1px solid #FFA500;  /* bordure */
+        background-color: #FFFFFF;  /* couleur de fond */
+        border: 1px solid #FFFFFF;  /* bordure */
         border-radius: 8px;
         padding: 10px;
         color: #000000;  /* couleur du texte */
