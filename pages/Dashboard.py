@@ -11,12 +11,15 @@ fact_data["Year"] = fact_data["Measure Date"].dt.year
 with st.sidebar:
     st.header("Filtres")
 
+    # Filtre par KPI (un seul)
     kpi_options = fact_data["kpi_name"].unique()
     selected_kpi = st.selectbox("Sélectionner un KPI", options=kpi_options)
 
+    # Filtre par années
     years = sorted(fact_data["Year"].unique())
     selected_years = st.multiselect("Années", options=years, default=years)
 
+    # Filtre par période
     min_date = fact_data["Measure Date"].min()
     max_date = fact_data["Measure Date"].max()
     date_range = st.date_input("Période", value=[min_date, max_date])
@@ -40,3 +43,15 @@ with col1:
 with col2:
     st.metric("Valeur max", f"{filtered_data['Measure'].max():.2f}")
 
+# --- Graphique d'évolution ---
+st.subheader("Évolution temporelle")
+fig, ax = plt.subplots()
+ax.plot(filtered_data["Measure Date"], filtered_data["Measure"], marker='o')
+ax.set_xlabel("Date")
+ax.set_ylabel("Mesure")
+ax.set_title(f"Évolution du KPI : {selected_kpi}")
+st.pyplot(fig)
+
+# --- Tableau des données ---
+st.subheader("Données détaillées")
+st.dataframe(filtered_data.sort_values("Measure Date", ascending=False))
