@@ -24,6 +24,7 @@ with st.sidebar:
     max_date = fact_data["Measure Date"].max()
     date_range = st.date_input("Période", value=[min_date, max_date])
 
+st.sidebar.image("image/GIF.gif", use_container_width=True)
 
 st.sidebar.subheader("À propos de TIRCIS")
 st.sidebar.info(
