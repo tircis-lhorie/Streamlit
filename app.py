@@ -17,7 +17,7 @@ st.sidebar.markdown("<p style='color: white;'> <b>TIRCIS</b> est une spin-off de
 
 
 # --- Liste des PIN autorisés ---
-AUTHORIZED_PINS = {"1234", "5678"}  # à adapter
+AUTHORIZED_PINS = {"1234", "5678"}
 
 # --- Session pour savoir si l'utilisateur est authentifié ---
 if "authenticated" not in st.session_state:
@@ -42,25 +42,30 @@ def login():
     )
 
     with st.container():
-        col1, col2, col3 = st.columns([1,2,1])
-        with col1: st.image("image/moving_icon.gif",use_container_width=True)
-            
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col1:
+            st.image("image/moving_icon.gif", use_container_width=True)
+
         with col2:
             st.markdown('<div class="centered-container">', unsafe_allow_html=True)
             st.title("Connexion requise")
             st.subheader("Veuillez entrer votre code PIN pour accéder à l'application")
-            pin = st.text_input("Code PIN à 4 chiffres", type="password", max_chars=4)
-            if st.button("Se connecter"):
-                if pin in AUTHORIZED_PINS:
-                    st.session_state.authenticated = True
-                    st.rerun()
-                else:
-                    st.error("Code PIN incorrect.")
+
+            with st.form(key="login_form"):
+                pin = st.text_input("Code PIN à 4 chiffres", type="password", max_chars=4)
+                submitted = st.form_submit_button("Se connecter")
+                if submitted:
+                    if pin in AUTHORIZED_PINS:
+                        st.session_state.authenticated = True
+                        st.rerun()
+                    else:
+                        st.error("Code PIN incorrect.")
             st.markdown('</div>', unsafe_allow_html=True)
 
 if not st.session_state.authenticated:
     login()
     st.stop()
+
 
 
 
