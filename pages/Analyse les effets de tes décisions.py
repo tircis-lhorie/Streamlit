@@ -111,7 +111,7 @@ def filter_button(label, key):
 # --- Affichage en 4 colonnes ---
 col1, col2, col3, col4, spacer = st.columns([1,1,1,1,2])
 with col1:
-    filter_button("Vue BSC", "bsc_view")
+    filter_button("Passer en vue BSC", "bsc_view")
 with col2:
     filter_button("Afficher les signes", "signs_on")
 with col3:
