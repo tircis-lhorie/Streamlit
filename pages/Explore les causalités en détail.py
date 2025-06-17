@@ -21,6 +21,7 @@ with st.sidebar:
     sign_filter = st.radio("Signe du lien", ["Tous", "Positive", "Negative"])
     min_weight = st.slider("Poids minimum", min_value=0.0, max_value=1.0, value=0.0, step=0.01)
 
+st.sidebar.image("image/GIF.gif", use_container_width=True)
 
 st.sidebar.subheader("À propos de TIRCIS")
 st.sidebar.info(
