@@ -46,15 +46,17 @@ col1, col2, col3 = st.columns(3)
 with col1:
     st.markdown("### 🔄 Analyse les effets de tes décisions")
     st.markdown("Carte interactive pour comprendre les impacts.")
-    st.markdown("[C’est parti !](Analyse les effets de tes décisions)")
+    if st.button("C’est parti !", key="page1"):
+        switch_page("Analyse les effets de tes décisions")
 
 with col2:
     st.markdown("### 📊 Découvre ton tableau de bord")
     st.markdown("Visualise tes données dans le temps.")
-    st.markdown("[C’est parti !](Découvre ton tableau de bord)")
+    if st.button("C’est parti !", key="page2"):
+        switch_page("Découvre ton tableau de bord")
 
 with col3:
     st.markdown("### 🔎 Explore les causalités en détail")
     st.markdown("Filtre et exporte les résultats complets.")
-    st.markdown("[C’est parti !](Explore les causalités en détail)")
-
+    if st.button("C’est parti !", key="page3"):
+        switch_page("Explore les causalités en détail")
