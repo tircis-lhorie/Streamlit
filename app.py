@@ -32,9 +32,9 @@ def login():
     st.title("🔐 Connexion requise")
     st.subheader("Veuillez entrer votre code PIN")
 
-    col1, col2, col3, col4, col5 = st.columns(5)
+    spacer, col2, spacer = st.columns(3)
 
-    with col3:
+    with col2:
         pin = st.text_input("Code PIN à 4 chiffres", type="password", max_chars=4)
         if st.button("Se connecter"):
             if pin in AUTHORIZED_PINS:
