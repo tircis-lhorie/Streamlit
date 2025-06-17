@@ -157,6 +157,8 @@ edge_labels = {(s, e): '+' if sign == 'Positive' else '-' for s, e, _, sign in e
 
 # Affichage graphique
 fig, ax = plt.subplots(figsize=(18, 11))
+fig.patch.set_facecolor('none')       
+ax.set_facecolor('none')           
 node_radius = 0.13
 for node, (x, y) in nodes_position.items():
     ax.scatter(x, y, s=6000, color=node_colors[node], zorder=3)
