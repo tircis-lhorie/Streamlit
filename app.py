@@ -51,7 +51,7 @@ pin = st.text_input("PIN", type="password", label_visibility="collapsed")
 
 st.markdown('<div class="centered">', unsafe_allow_html=True)
 if st.button("Se connecter"):
-    if pin in authorized_pins:
+    if pin in AUTHORIZED_PINS:
         st.success("Connexion réussie ✅")
         st.session_state.authenticated = True
         st.rerun()
