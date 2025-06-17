@@ -30,13 +30,18 @@ if "authenticated" not in st.session_state:
 
 def login():
     st.title("🔐 Connexion requise")
-    pin = st.text_input("Entrez votre code PIN à 4 chiffres", type="password", max_chars=4)
-    if st.button("Se connecter"):
-        if pin in AUTHORIZED_PINS:
-            st.session_state.authenticated = True
-            st.rerun()
-        else:
-            st.error("Code PIN incorrect.")
+    st.subheader("Veuillez entrer votre code PIN")
+
+    col1, col2, col3, col4, col5 = st.columns(5)
+
+    with col3:
+        pin = st.text_input("Code PIN à 4 chiffres", type="password", max_chars=4)
+        if st.button("Se connecter"):
+            if pin in AUTHORIZED_PINS:
+                st.session_state.authenticated = True
+                st.rerun()
+            else:
+                st.error("Code PIN incorrect.")
 
 if not st.session_state.authenticated:
     login()
