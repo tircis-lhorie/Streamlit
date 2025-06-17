@@ -6,17 +6,6 @@ from matplotlib.patches import FancyArrowPatch
 import io
 
 st.sidebar.subheader("About This App")
-st.markdown("""
-    <style>
-    section[data-testid="stSidebar"] .element-container:has(.stAlert) {
-        background-color: #FFFFFF;  /* couleur de fond */
-        border: 1px solid #FFFFFF;  /* bordure */
-        border-radius: 8px;
-        padding: 10px;
-        color: #000000;  /* couleur du texte */
-    }
-    </style>
-""", unsafe_allow_html=True)
 st.sidebar.info(
     """
     Cette application permet de visualiser les liens de causalité entre les indicateurs de performance (KPIs) 
