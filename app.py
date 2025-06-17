@@ -12,7 +12,7 @@ st.set_page_config(page_title="TIRCIS Dashboard", layout="wide")
 st.sidebar.image("image/GIF.gif", use_container_width=True)
 
 st.sidebar.subheader("À propos de TIRCIS")
-st.sidebar.info(
+st.sidebar.markdown(
     """
     **TIRCIS** est une spin-off de l'Université de Namur spécialisée en **Business Intelligence** augmentée.
     
