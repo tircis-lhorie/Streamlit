@@ -26,9 +26,6 @@ if not st.session_state.authenticated:
     login()
     st.stop()
 
-# --- Si authentifié, continuer ---
-st.success("Bienvenue ! Vous êtes connecté 🔓")
-
 
 # --- Interface Streamlit ---
 st.set_page_config(page_title="TIRCIS Dashboard", layout="wide")
