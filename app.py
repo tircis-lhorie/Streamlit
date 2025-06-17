@@ -22,12 +22,7 @@ st.sidebar.markdown(
 )
 
 
-st.markdown("<h3 style='color: white;'>"""
-    **TIRCIS** est une spin-off de l'Université de Namur spécialisée en **Business Intelligence** augmentée.
-    
-    Notre solution permet de **cartographier les liens de causalité entre les KPIs** d’une organisation afin d’anticiper les effets de chaque décision.
-
-    Contact: tircis@unamur.be    """</h3>", unsafe_allow_html=True)
+st.markdown("<h3 style='color: white;'> **TIRCIS** est une spin-off de l'Université de Namur spécialisée en **Business Intelligence** augmentée. Notre solution permet de **cartographier les liens de causalité entre les KPIs** d’une organisation afin d’anticiper les effets de chaque décision. Contact: tircis@unamur.be</h3>", unsafe_allow_html=True)
 
 
 
