@@ -77,7 +77,7 @@ filtered_csv = filtered_df.to_csv(index=False).encode("utf-8")
 all_csv = all_links_export.to_csv(index=False).encode("utf-8")
 
 # --- Affichage côte à côte ---
-col1, col2 = st.columns(2)
+col1, col2, spacer = st.columns(1, 1, 3)
 with col1:
     st.download_button(
         label="↓ Télécharger toutes les données au format csv",
