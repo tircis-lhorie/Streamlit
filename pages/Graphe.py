@@ -44,24 +44,32 @@ with st.sidebar:
     bsc_filter = st.multiselect("Filtrer par catégorie BSC", dim_kpis['bsc_category'].dropna().unique())
     sust_filter = st.selectbox("Durable uniquement ?", ["Tous", "Oui uniquement", "Non uniquement"])
 
-# --- CSS pour style bouton sélectionné + hover ---
 st.markdown("""
 <style>
-button[kind="secondary"] {
-    border: 1px solid #FFA500 !important;
-    color: #FFA500 !important;
+div[data-testid="stButton"] button {
+    color: #CCCCCC !important;
+    border: 2px solid #CCCCCC !important;
     background-color: white !important;
-    transition: 0.2s;
+    border-radius: 12px;
+    font-weight: normal;
+    transition: all 0.2s ease-in-out;
 }
-button[kind="secondary"]:hover {
-    background-color: #fff5e6 !important;
+
+div[data-testid="stButton"] button:hover {
+    color: #FFA500 !important;
+    border: 2px solid #FFA500 !important;
+    font-weight: bold !important;
 }
-button[kind="secondary"].active {
-    background-color: #FFA500 !important;
-    color: white !important;
+
+div[data-testid="stButton"] button.active {
+    color: #FFA500 !important;
+    border: 2px solid #FFA500 !important;
+    background-color: #FFF5E6 !important;
+    font-weight: bold !important;
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 # --- Initialiser les filtres dans la session ---
 for key, default in {
@@ -73,15 +81,22 @@ for key, default in {
     if key not in st.session_state:
         st.session_state[key] = default
 
-# --- Fonction pour afficher un bouton stylé ---
 def filter_button(label, key):
     active = st.session_state[key]
     btn = st.button(label, key=key+"_btn")
     if btn:
         st.session_state[key] = not active
-    # Afficher le bouton comme actif avec JS (via CSS class)
     if st.session_state[key]:
-        st.markdown(f"<style>div[data-testid='stButton'][data-key='{key}_btn'] button{{background-color: #FFA500 !important; color: white !important;}}</style>", unsafe_allow_html=True)
+        st.markdown(f"""
+            <style>
+            div[data-testid="stButton"][data-key="{key}_btn"] button {{
+                color: #FFA500 !important;
+                border: 2px solid #FFA500 !important;
+                background-color: #FFF5E6 !important;
+                font-weight: bold !important;
+            }}
+            </style>
+        """, unsafe_allow_html=True)
 
 # --- Affichage en 4 colonnes ---
 col1, col2, col3, col4 = st.columns(4)
