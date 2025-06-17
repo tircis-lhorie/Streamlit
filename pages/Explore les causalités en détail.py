@@ -7,7 +7,7 @@ fact_links = pd.read_csv("data/fact_links.csv", sep=";")
 fact_links = fact_links[fact_links["weight"] > 0]
 
 # --- Titre de la page ---
-st.title("Tableau de causalité")
+st.title("Tableau récapitulatif des causalité")
 st.markdown("Explorez les effets de causalités entre les KPIs de votre entreprise !")
 
 # --- Merge pour afficher les noms des KPIs ---
