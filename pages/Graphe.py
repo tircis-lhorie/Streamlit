@@ -13,7 +13,7 @@ st.markdown("""
         border: 1px solid #FFA500;  /* bordure */
         border-radius: 8px;
         padding: 10px;
-        color: #333333;  /* couleur du texte */
+        color: #000000;  /* couleur du texte */
     }
     </style>
 """, unsafe_allow_html=True)
