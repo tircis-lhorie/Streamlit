@@ -37,7 +37,6 @@ def login():
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 80vh;
             text-align: center;
         }
         .centered-container input {
