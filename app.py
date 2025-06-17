@@ -5,6 +5,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch
 
+st.set_page_config(page_title="TIRCIS Dashboard", layout="wide")
+
+
 # --- Liste des PIN autorisés ---
 AUTHORIZED_PINS = {"2024", "1234"} 
 
@@ -58,7 +61,6 @@ st.markdown('</div>', unsafe_allow_html=True)
 
 
 # --- Interface Streamlit ---
-st.set_page_config(page_title="TIRCIS Dashboard", layout="wide")
 st.sidebar.image("image/logo.png", use_container_width=True)
 
 st.title("Bienvenue")
