@@ -41,23 +41,20 @@ st.markdown("Bienvenue sur votre espace TIRCIS.")
 # Espacement
 st.markdown("## ")
 
-# Affichage des 3 cartes
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.markdown("### 🔗 Visualise les causalités")
-    st.markdown("Carte interactive des liens entre KPIs.")
-    if st.button("C'est parti !", key="go_graphe"):
-        switch_page("Analyse les effets de tes décisions.py")
+    st.markdown("### 🔄 Analyse les effets de tes décisions")
+    st.markdown("Carte interactive pour comprendre les impacts.")
+    st.markdown("[C’est parti !](Analyse les effets de tes décisions)")
 
 with col2:
     st.markdown("### 📊 Découvre ton tableau de bord")
-    st.markdown("Analyse l'évolution d’un indicateur.")
-    if st.button("C'est parti !", key="go_dashboard"):
-        switch_page("Découvre ton tableau de bord.py")
+    st.markdown("Visualise tes données dans le temps.")
+    st.markdown("[C’est parti !](Découvre ton tableau de bord)")
 
 with col3:
-    st.markdown("### 📋 Explore les causalités en détail")
-    st.markdown("Tableau filtrable des relations.")
-    if st.button("C'est parti !", key="go_table"):
-        switch_page("Explore les causalités en détail.py")
+    st.markdown("### 🔎 Explore les causalités en détail")
+    st.markdown("Filtre et exporte les résultats complets.")
+    st.markdown("[C’est parti !](Explore les causalités en détail)")
+
