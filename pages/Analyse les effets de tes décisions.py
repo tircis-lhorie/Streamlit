@@ -44,7 +44,7 @@ with st.sidebar:
     st.header("Filtres avancés")
     bsc_filter = st.multiselect("Filtrer par catégorie BSC", dim_kpis['bsc_category'].dropna().unique())
     sust_filter = st.selectbox("Durable uniquement ?", ["Tous", "Oui uniquement", "Non uniquement"])
-
+st.sidebar.markdown(---)
 st.sidebar.subheader("À propos de TIRCIS")
 st.sidebar.info(
     """
