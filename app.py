@@ -48,7 +48,7 @@ def login():
     )
 
     with st.container():
-        col1, col2, col3 = st.columns([1, 2, 1])
+        col1, col2, col3 = st.columns([2, 1, 2])
         with col2:
             st.markdown('<div class="centered-container">', unsafe_allow_html=True)
             st.title("Connexion requise")
