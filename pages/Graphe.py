@@ -5,16 +5,17 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch
 import io
 
-st.sidebar.subheader("About This App")
-st.sidebar.info(
-    """
-    Cette application permet de visualiser les liens de causalité entre les indicateurs de performance (KPIs) 
-    d'une organisation. 
-    Le graphe représente les KPIs comme des nœuds, reliés entre eux par des flèches indiquant des relations causales 
-    identifiées statistiquement.
-    Utilisez les filtres pour explorer les indicateurs par catégorie BSC, durabilité, ou poids du lien.
-    """
-)
+st.title("Visualisation des causalités entre KPIs")
+st.markdown("""
+Cette application permet de visualiser les **liens de causalité** entre les indicateurs de performance (KPIs) 
+d'une organisation.  
+Le graphe représente les KPIs comme des nœuds, reliés entre eux par des flèches indiquant des relations causales 
+identifiées statistiquement.
+
+Utilisez les filtres pour explorer les indicateurs par **catégorie BSC**, **durabilité** ou **poids du lien**.
+""")
+
+
 
 
 # --- Fonctions utilitaires ---
@@ -43,6 +44,15 @@ with st.sidebar:
     st.header("Filtres avancés")
     bsc_filter = st.multiselect("Filtrer par catégorie BSC", dim_kpis['bsc_category'].dropna().unique())
     sust_filter = st.selectbox("Durable uniquement ?", ["Tous", "Oui uniquement", "Non uniquement"])
+
+st.sidebar.subheader("À propos de TIRCIS")
+st.sidebar.info(
+    """
+    **TIRCIS** est une spin-off académique spécialisée en **Business Intelligence** augmentée.
+    Notre solution permet de **cartographier les liens de causalité entre les KPIs** d’une organisation afin d’anticiper les effets de chaque décision.
+    Basée sur des méthodes de recherche avancées, TIRCIS transforme vos données en **leviers d’action concrets** pour piloter votre stratégie avec plus de clarté et d’impact.
+    """
+)
 
 st.markdown("""
 <style>
