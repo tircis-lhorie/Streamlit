@@ -8,7 +8,7 @@ fact_links = fact_links[fact_links["weight"] > 0]
 
 # --- Titre de la page ---
 st.title("Tableau récapitulatif des causalité")
-st.markdown("Explorez les effets de causalités entre les KPIs de votre entreprise !")
+st.markdown("Vous trouverez ci-dessous l'intégralité des résultats des analyses de causalités entre les KPIs de votre entreprise.")
 
 # --- Merge pour afficher les noms des KPIs ---
 fact_links = fact_links.merge(dim_kpis[['kpi_id', 'kpi_name']], left_on='From_id', right_on='kpi_id', how='left').rename(columns={'kpi_name': 'kpi_from_name'})
