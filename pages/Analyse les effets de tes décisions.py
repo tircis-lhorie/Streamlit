@@ -46,7 +46,7 @@ with st.sidebar:
     sust_filter = st.selectbox("Durable uniquement ?", ["Tous", "Oui uniquement", "Non uniquement"])
 st.sidebar.markdown("---")
 st.sidebar.subheader("À propos de TIRCIS")
-st.sidebar.info(
+st.sidebar.markdown(
     """
     **TIRCIS** est une spin-off de l'Université de Namur spécialisée en **Business Intelligence** augmentée.
     
