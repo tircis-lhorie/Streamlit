@@ -11,6 +11,16 @@ from streamlit_extras.switch_page_button import switch_page
 st.set_page_config(page_title="TIRCIS Dashboard", layout="wide")
 st.sidebar.image("image/logo.png", use_container_width=True)
 
+st.sidebar.subheader("À propos de TIRCIS")
+st.sidebar.info(
+    """
+    **TIRCIS** est une spin-off de l'Université de Namur spécialisée en **Business Intelligence** augmentée.
+    
+    Notre solution permet de **cartographier les liens de causalité entre les KPIs** d’une organisation afin d’anticiper les effets de chaque décision.
+
+    Contact: tircis@unamur.be    """
+)
+
 # --- Liste des PIN autorisés ---
 AUTHORIZED_PINS = {"1234", "5678"}  # à adapter
 
