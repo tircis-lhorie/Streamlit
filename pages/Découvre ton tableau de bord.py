@@ -24,6 +24,17 @@ with st.sidebar:
     max_date = fact_data["Measure Date"].max()
     date_range = st.date_input("Période", value=[min_date, max_date])
 
+
+st.sidebar.subheader("À propos de TIRCIS")
+st.sidebar.info(
+    """
+    **TIRCIS** est une spin-off de l'Université de Namur spécialisée en **Business Intelligence** augmentée.
+    
+    Notre solution permet de **cartographier les liens de causalité entre les KPIs** d’une organisation afin d’anticiper les effets de chaque décision.
+
+    Contact: tircis@unamur.be    """
+)
+
 # --- Filtrage des données ---
 filtered_data = fact_data[
     (fact_data["kpi_name"] == selected_kpi) &
