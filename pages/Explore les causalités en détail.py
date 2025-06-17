@@ -21,6 +21,17 @@ with st.sidebar:
     sign_filter = st.radio("Signe du lien", ["Tous", "Positive", "Negative"])
     min_weight = st.slider("Poids minimum", min_value=0.0, max_value=1.0, value=0.0, step=0.01)
 
+
+st.sidebar.subheader("À propos de TIRCIS")
+st.sidebar.info(
+    """
+    **TIRCIS** est une spin-off de l'Université de Namur spécialisée en **Business Intelligence** augmentée.
+    
+    Notre solution permet de **cartographier les liens de causalité entre les KPIs** d’une organisation afin d’anticiper les effets de chaque décision.
+
+    Contact: tircis@unamur.be    """
+)
+
 # --- Application des filtres ---
 if bsc_filter:
     fact_links = fact_links[
