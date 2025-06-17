@@ -47,17 +47,17 @@ col1, col2, col3 = st.columns(3)
 with col1:
     st.markdown("### 🔗 Visualise les causalités")
     st.markdown("Carte interactive des liens entre KPIs.")
-    if st.button("Accéder", key="go_graphe"):
-        switch_page("Graphe")
+    if st.button("C'est parti !", key="go_graphe"):
+        switch_page("Analyse les effets de tes décisions")
 
 with col2:
     st.markdown("### 📊 Découvre ton tableau de bord")
     st.markdown("Analyse l'évolution d’un indicateur.")
-    if st.button("Accéder", key="go_dashboard"):
-        switch_page("Dashboard")
+    if st.button("C'est parti !", key="go_dashboard"):
+        switch_page("Découvre ton tableau de bord")
 
 with col3:
     st.markdown("### 📋 Explore les causalités en détail")
     st.markdown("Tableau filtrable des relations.")
-    if st.button("Accéder", key="go_table"):
-        switch_page("Table")
+    if st.button("C'est parti !", key="go_table"):
+        switch_page("Explore les causalités en détail")
