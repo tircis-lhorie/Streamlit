@@ -36,4 +36,7 @@ st.markdown(f"### KPI sélectionné : {selected_kpi}")
 # --- Indicateurs clés ---
 col1, col2 = st.columns(2)
 with col1:
-    st.metric("Valeur moyenne", f"{filtered_data_
+    st.metric("Valeur moyenne", f"{filtered_data['Measure'].mean():.2f}")
+with col2:
+    st.metric("Valeur max", f"{filtered_data['Measure'].max():.2f}")
+
