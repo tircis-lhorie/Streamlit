@@ -48,16 +48,16 @@ with col1:
     st.markdown("### 🔗 Visualise les causalités")
     st.markdown("Carte interactive des liens entre KPIs.")
     if st.button("C'est parti !", key="go_graphe"):
-        switch_page("Analyse les effets de tes décisions")
+        switch_page("Analyse les effets de tes décisions.py")
 
 with col2:
     st.markdown("### 📊 Découvre ton tableau de bord")
     st.markdown("Analyse l'évolution d’un indicateur.")
     if st.button("C'est parti !", key="go_dashboard"):
-        switch_page("Découvre ton tableau de bord")
+        switch_page("Découvre ton tableau de bord.py")
 
 with col3:
     st.markdown("### 📋 Explore les causalités en détail")
     st.markdown("Tableau filtrable des relations.")
     if st.button("C'est parti !", key="go_table"):
-        switch_page("Explore les causalités en détail")
+        switch_page("Explore les causalités en détail.py")
