@@ -71,7 +71,7 @@ if not st.session_state.authenticated:
 
 
 st.title("Bienvenue")
-st.markdown("Bienvenue sur votre espace TIRCIS.")
+st.markdown("Bienvenue sur l'application TIRCIS.")
 
 # Espacement
 st.markdown("## ")
