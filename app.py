@@ -5,11 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch
 
-# --- Configuration utilisateur simple ---
-USERS = {
-    "corentin.burnay@unamur.be": "1234",  
-    "lhorie.pirnay@unamur.be": "1234"
-}
+# --- Liste des PIN autorisés ---
+AUTHORIZED_PINS = {"9876", "9876"}  # à adapter
 
 # --- Session pour savoir si l'utilisateur est authentifié ---
 if "authenticated" not in st.session_state:
@@ -17,14 +14,13 @@ if "authenticated" not in st.session_state:
 
 def login():
     st.title("🔐 Connexion requise")
-    username = st.text_input("Adresse email")
-    password = st.text_input("Code PIN", type="password")
+    pin = st.text_input("Entrez votre code PIN à 4 chiffres", type="password", max_chars=4)
     if st.button("Se connecter"):
-        if username in USERS and USERS[username] == password:
+        if pin in AUTHORIZED_PINS:
             st.session_state.authenticated = True
             st.rerun()
         else:
-            st.error("Identifiants incorrects.")
+            st.error("Code PIN incorrect.")
 
 if not st.session_state.authenticated:
     login()
