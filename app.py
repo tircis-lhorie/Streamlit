@@ -11,8 +11,6 @@ from streamlit_extras.switch_page_button import switch_page
 st.set_page_config(page_title="TIRCIS Dashboard", layout="wide")
 st.logo("image/GIF2.gif", icon_image="image/icon.png")
 
-st.sidebar.image("image/GIF2.gif", use_container_width=True)
-
 st.sidebar.subheader("À propos de TIRCIS")
 st.sidebar.markdown(
     """
