@@ -71,14 +71,25 @@ div[data-testid="stButton"] button:hover {
     font-weight: bold !important;
 }
 
-div[data-testid="stButton"] button.active {
-    color: #FFA500 !important;
-    border: 2px solid #FFA500 !important;
-    background-color: #FFF5E6 !important;
-    font-weight: bold !important;
-}
 </style>
 """, unsafe_allow_html=True)
+
+def filter_button(label, key):
+    active = st.session_state.get(key, False)
+    clicked = st.button(label, key=key + "_btn")
+    if clicked:
+        st.session_state[key] = not active
+    if st.session_state[key]:  # Si actif, injecte un style ciblé
+        st.markdown(f"""
+        <style>
+        div[data-testid="stButton"][data-key="{key}_btn"] button {{
+            color: #FFA500 !important;
+            border: 2px solid #FFA500 !important;
+            background-color: #FFF5E6 !important;
+            font-weight: bold !important;
+        }}
+        </style>
+        """, unsafe_allow_html=True)
 
 
 # --- Initialiser les filtres dans la session ---
