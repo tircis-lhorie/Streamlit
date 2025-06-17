@@ -46,10 +46,14 @@ with col2:
 # --- Graphique d'évolution ---
 st.subheader("Évolution temporelle")
 fig, ax = plt.subplots()
+fig.patch.set_facecolor("#F0F0F0")     # ou .set_alpha(0.0) pour transparent
+ax.set_facecolor("#F0F0F0")           # ou "none" pour transparent
+
 ax.plot(filtered_data["Measure Date"], filtered_data["Measure"], marker='o')
 ax.set_xlabel("Date")
 ax.set_ylabel("Mesure")
 ax.set_title(f"Évolution du KPI : {selected_kpi}")
+
 st.pyplot(fig)
 
 # --- Tableau des données ---
