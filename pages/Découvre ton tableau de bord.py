@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
+st.logo("image/GIF2.gif", icon_image="image/icon.png")
+
 # --- Chargement des données ---
 fact_data = pd.read_csv("data/fact_data.csv", sep=";")
 fact_data["Measure Date"] = pd.to_datetime(fact_data["Measure Date"], dayfirst=True)
@@ -23,8 +25,6 @@ with st.sidebar:
     min_date = fact_data["Measure Date"].min()
     max_date = fact_data["Measure Date"].max()
     date_range = st.date_input("Période", value=[min_date, max_date])
-
-st.sidebar.image("image/GIF.gif", use_container_width=True)
 
 st.sidebar.subheader("À propos de TIRCIS")
 st.sidebar.info(
