@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch
 import io
 
+st.logo("image/GIF2.gif", icon_image="image/icon.png")
 st.title("Visualisation des causalités entre KPIs")
 st.markdown("""
 Cette application permet de visualiser les **liens de causalité** entre les indicateurs de performance (KPIs) 
@@ -40,7 +41,6 @@ fact_links = fact_links[fact_links["weight"] > 0]
 
 # Filtres Sidebar
 with st.sidebar:
-    st.sidebar.image("image/GIF.gif", use_container_width=True)
     st.header("Filtres avancés")
     bsc_filter = st.multiselect("Filtrer par catégorie BSC", dim_kpis['bsc_category'].dropna().unique())
     sust_filter = st.selectbox("Durable uniquement ?", ["Tous", "Oui uniquement", "Non uniquement"])
