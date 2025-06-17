@@ -80,16 +80,16 @@ all_csv = all_links_export.to_csv(index=False).encode("utf-8")
 col1, col2 = st.columns(2)
 with col1:
     st.download_button(
-        label="📥 Télécharger les données filtrées",
+        label="Télécharger les données filtrées",
         data=filtered_csv,
-        file_name="liens_kpis_filtrés.csv",
+        file_name="liens_kpis_complets.csv",
         mime="text/csv"
     )
 with col2:
     st.download_button(
-        label="📁 Télécharger toutes les données",
+        label="Télécharger toutes les données",
         data=all_csv,
-        file_name="liens_kpis_complets.csv",
+        file_name="liens_kpis_filtrés.csv",
         mime="text/csv"
     )
 
