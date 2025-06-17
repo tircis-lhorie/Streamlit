@@ -6,25 +6,55 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch
 
 # --- Liste des PIN autorisés ---
-AUTHORIZED_PINS = {"1234", "5678"}  # à adapter
+AUTHORIZED_PINS = {"2024", "1234"} 
 
-# --- Session pour savoir si l'utilisateur est authentifié ---
-if "authenticated" not in st.session_state:
-    st.session_state.authenticated = False
+# --- CSS pour centrer et styliser ---
+st.markdown("""
+<style>
+.centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+input[type="password"] {
+    font-size: 24px !important;
+    letter-spacing: 10px;
+    text-align: center;
+    width: 150px !important;
+}
+.stButton button {
+    background-color: #FFA500;
+    color: white;
+    border: none;
+    padding: 0.75em 2em;
+    font-size: 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.stButton button:hover {
+    background-color: #e69500;
+}
+</style>
+""", unsafe_allow_html=True)
 
-def login():
-    st.title("🔐 Connexion requise")
-    pin = st.text_input("Entrez votre code PIN à 4 chiffres", type="password", max_chars=4)
-    if st.button("Se connecter"):
-        if pin in AUTHORIZED_PINS:
-            st.session_state.authenticated = True
-            st.rerun()
-        else:
-            st.error("Code PIN incorrect.")
+# --- Interface centrée ---
+st.markdown('<div class="centered">🔐</div>', unsafe_allow_html=True)
+st.markdown('<div class="centered"><h4>Entrez votre code PIN</h4><p>Veuillez entrer le code à 4 chiffres</p></div>', unsafe_allow_html=True)
 
-if not st.session_state.authenticated:
-    login()
-    st.stop()
+pin = st.text_input("PIN", type="password", label_visibility="collapsed")
+
+st.markdown('<div class="centered">', unsafe_allow_html=True)
+if st.button("Se connecter"):
+    if pin in authorized_pins:
+        st.success("Connexion réussie ✅")
+        st.session_state.authenticated = True
+        st.rerun()
+    else:
+        st.error("Code PIN incorrect ❌")
+st.markdown('</div>', unsafe_allow_html=True)
 
 
 # --- Interface Streamlit ---
