@@ -109,7 +109,7 @@ def filter_button(label, key):
         """, unsafe_allow_html=True)
 
 # --- Affichage en 4 colonnes ---
-col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3, col4, spacer = st.columns([1,1,1,1,2])
 with col1:
     filter_button("Vue BSC", "bsc_view")
 with col2:
