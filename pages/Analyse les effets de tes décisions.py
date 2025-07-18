@@ -29,6 +29,9 @@ identifiées statistiquement.
 Utilisez les filtres pour explorer les indicateurs par **catégorie BSC**, **durabilité** ou **poids du lien**.
 """)
 
+
+
+
 # --- Fonctions utilitaires ---
 def format_label(label):
     return label.replace(' ', '\n')
@@ -44,10 +47,16 @@ def adjust_arrow_positions(start_pos, end_pos, node_radius):
     dy /= distance
     return (start_x + dx * node_radius, start_y + dy * node_radius), (end_x - dx * node_radius, end_y - dy * node_radius)
 
+
+
+
 # --- Chargement des données ---
 dim_kpis = pd.read_csv("data/dim_kpis.csv", sep=";")
 fact_links = pd.read_csv("data/fact_links.csv", sep=";")
 fact_links = fact_links[fact_links["weight"] > 0]
+
+
+
 
 # Filtres Sidebar
 with st.sidebar:
@@ -98,11 +107,13 @@ def filter_button(label, key):
 for key, default in {
     "bsc_view": False,
     "signs_on": False,
-    "sust_on": True,
+    "sust_on": False,
     "weights_on": False
 }.items():
     if key not in st.session_state:
         st.session_state[key] = default
+
+
 
 col1, col2, col3, col4, spacer = st.columns([1,1,1,1,2])
 with col1:
