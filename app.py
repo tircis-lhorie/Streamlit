@@ -54,7 +54,7 @@ def login():
             st.subheader("Veuillez entrer votre code PIN pour accéder à l'application")
 
             with st.form(key="login_form"):
-                username = st.text_input("Nom d'utilisateur")
+                username = st.text_input("Adresse email")
                 password = st.text_input("Mot de passe", type="password")
                 submitted = st.form_submit_button("Se connecter")
                 if submitted:
