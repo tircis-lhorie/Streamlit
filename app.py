@@ -85,7 +85,7 @@ with col1:
     st.markdown("### 🔄 Analyse les effets de tes décisions")
     st.markdown("Carte interactive pour comprendre les impacts.")
     if st.button("C’est parti !", key="page1"):
-        switch_page("Analyse les effets de tes décisions")
+        switch_page("Analyse les effets de tes décisions.py")
 
 with col2:
     st.markdown("### 📊 Découvre ton tableau de bord")
