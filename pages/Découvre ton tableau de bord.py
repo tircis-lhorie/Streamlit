@@ -2,6 +2,16 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
+
+# Si l'utilisateur n'est pas authentifié
+if "authenticated" not in st.session_state or not st.session_state.authenticated:
+    st.warning("Vous devez être connecté pour accéder à cette page.")
+    
+    if st.button("Retour à la page de connexion"):
+        st.switch_page("app.py") 
+    st.stop()
+
+
 st.set_page_config(page_title="TIRCIS Dashboard",
                    page_icon="image/icon-transparent.png",
                    layout="wide")
