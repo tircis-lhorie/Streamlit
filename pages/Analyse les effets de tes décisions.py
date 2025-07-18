@@ -206,7 +206,7 @@ ax.set_facecolor('none')
 node_radius = 0.08
 for node, (x, y) in nodes_position.items():
     ax.scatter(x, y, s=2000, color=node_colors[node], zorder=3)
-    ax.text(x, y, format_label(node), ha='center', va='center', fontsize=12, fontweight='bold', color='white', zorder=4)
+    ax.text(x, y, format_label(node), ha='center', va='center', fontsize=8, fontweight='bold', color='white', zorder=4)
 
 for (start, end, weight, sign), width in zip(edges, edge_widths):
     posA, posB = adjust_arrow_positions(nodes_position[start], nodes_position[end], node_radius)
