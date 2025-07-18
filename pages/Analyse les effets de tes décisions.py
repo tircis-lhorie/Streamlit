@@ -88,21 +88,29 @@ div[data-testid="stButton"] button:hover {
 
 def filter_button(label, key):
     active = st.session_state.get(key, False)
-    btn = st.button(label, key=key + "_btn")
-    if btn:
+    clicked = st.button(label, key=key + "_btn")
+    if clicked:
         st.session_state[key] = not active
 
-    style = f"""
-    <style>
-    div[data-testid="stButton"][data-key="{key}_btn"] button {{
-        color: {"#FFA500" if st.session_state[key] else "#888888"} !important;
-        border: 2px solid {"#FFA500" if st.session_state[key] else "#CCCCCC"} !important;
-        background-color: {"#FFF5E6" if st.session_state[key] else "white"} !important;
-        font-weight: {"bold" if st.session_state[key] else "normal"} !important;
-    }}
-    </style>
-    """
-    st.markdown(style, unsafe_allow_html=True)
+    # Style dynamique basé sur l'état
+    active_color = "#FFA500"
+    inactive_color = "#CCCCCC"
+    background = "#FFF5E6" if st.session_state[key] else "white"
+    text_color = active_color if st.session_state[key] else inactive_color
+    border_color = active_color if st.session_state[key] else inactive_color
+    font_weight = "bold" if st.session_state[key] else "normal"
+
+    st.markdown(f"""
+        <style>
+        div[data-testid="stButton"][data-key="{key}_btn"] button {{
+            color: {text_color} !important;
+            border: 2px solid {border_color} !important;
+            background-color: {background} !important;
+            font-weight: {font_weight} !important;
+            border-radius: 12px;
+        }}
+        </style>
+    """, unsafe_allow_html=True)
 
 
 # Initialiser filtres
@@ -126,6 +134,7 @@ with col3:
     filter_button("Colorer durabilité", "sust_on")
 with col4:
     filter_button("Épaisseur selon poids", "weights_on")
+
 
 bsc_view = st.session_state["bsc_view"]
 signs_on = st.session_state["signs_on"]
