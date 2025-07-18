@@ -19,7 +19,7 @@ st.sidebar.markdown("<p style='color: white;'> <b>TIRCIS</b> est une spin-off de
 
 
 # --- Liste des PIN autorisés ---
-AUTHORIZED_PINS = {"1234", "5678"}
+AUTHORIZED_USERS = {"lhorie.pirnay@unamur.be": "1234", "corentin.burnay@unamur.be": "1234"}
 
 # --- Session pour savoir si l'utilisateur est authentifié ---
 if "authenticated" not in st.session_state:
@@ -54,14 +54,15 @@ def login():
             st.subheader("Veuillez entrer votre code PIN pour accéder à l'application")
 
             with st.form(key="login_form"):
-                pin = st.text_input("Code PIN à 4 chiffres", type="password", max_chars=4)
+                username = st.text_input("Nom d'utilisateur")
+                password = st.text_input("Mot de passe", type="password")
                 submitted = st.form_submit_button("Se connecter")
                 if submitted:
-                    if pin in AUTHORIZED_PINS:
+                    if AUTHORIZED_USERS.get(username) == password:
                         st.session_state.authenticated = True
                         st.rerun()
                     else:
-                        st.error("Code PIN incorrect.")
+                        st.error("Identifiants incorrects.")
             st.markdown('</div>', unsafe_allow_html=True)
 
 if not st.session_state.authenticated:
