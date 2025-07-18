@@ -5,16 +5,16 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch
 import io
 
+# --- Mise à l'échelle globale ---
+scale = 1.0  # Modifie cette variable pour ajuster toutes les tailles
+
 # Si l'utilisateur n'est pas authentifié
 if "authenticated" not in st.session_state or not st.session_state.authenticated:
     st.warning("Vous devez être connecté pour accéder à cette page.")
-    
     if st.button("Retour à la page de connexion"):
         st.switch_page("app.py") 
     st.stop()
 
-
-  
 st.set_page_config(page_title="TIRCIS Dashboard",
                    page_icon="image/icon-transparent.png",
                    layout="wide")
@@ -28,8 +28,6 @@ identifiées statistiquement.
 
 Utilisez les filtres pour explorer les indicateurs par **catégorie BSC**, **durabilité** ou **poids du lien**.
 """)
-
-
 
 # --- Fonctions utilitaires ---
 def format_label(label):
@@ -60,8 +58,6 @@ st.sidebar.markdown("---")
 st.sidebar.subheader("À propos de TIRCIS")
 st.sidebar.markdown("<p style='color: white;'> <b>TIRCIS</b> est une spin-off de l'Université de Namur spécialisée en <b>Business Intelligence</b>. <br><br>Notre solution permet de <b>cartographier les liens de causalité entre les KPIs</b> d’une organisation afin d’anticiper les effets de chaque décision. <br><br>Contact: <u>tircis@unamur.be</u></p>", unsafe_allow_html=True)
 
-
-
 st.markdown("""
 <style>
 div[data-testid="stButton"] button {
@@ -78,7 +74,6 @@ div[data-testid="stButton"] button:hover {
     border: 2px solid #FFA500 !important;
     font-weight: bold !important;
 }
-
 </style>
 """, unsafe_allow_html=True)
 
@@ -87,7 +82,7 @@ def filter_button(label, key):
     clicked = st.button(label, key=key + "_btn")
     if clicked:
         st.session_state[key] = not active
-    if st.session_state[key]:  # Si actif, injecte un style ciblé
+    if st.session_state[key]:
         st.markdown(f"""
         <style>
         div[data-testid="stButton"][data-key="{key}_btn"] button {{
@@ -99,8 +94,7 @@ def filter_button(label, key):
         </style>
         """, unsafe_allow_html=True)
 
-
-# --- Initialiser les filtres dans la session ---
+# Initialiser filtres
 for key, default in {
     "bsc_view": False,
     "signs_on": False,
@@ -110,24 +104,6 @@ for key, default in {
     if key not in st.session_state:
         st.session_state[key] = default
 
-def filter_button(label, key):
-    active = st.session_state[key]
-    btn = st.button(label, key=key+"_btn")
-    if btn:
-        st.session_state[key] = not active
-    if st.session_state[key]:
-        st.markdown(f"""
-            <style>
-            div[data-testid="stButton"][data-key="{key}_btn"] button {{
-                color: #FFA500 !important;
-                border: 2px solid #FFA500 !important;
-                background-color: #FFF5E6 !important;
-                font-weight: bold !important;
-            }}
-            </style>
-        """, unsafe_allow_html=True)
-
-# --- Affichage en 4 colonnes ---
 col1, col2, col3, col4, spacer = st.columns([1,1,1,1,2])
 with col1:
     filter_button("Passer en vue BSC", "bsc_view")
@@ -138,18 +114,14 @@ with col3:
 with col4:
     filter_button("Épaisseur selon poids", "weights_on")
 
-# --- Utilisation dans ton code ---
 bsc_view = st.session_state["bsc_view"]
 signs_on = st.session_state["signs_on"]
 sust_on = st.session_state["sust_on"]
 weights_on = st.session_state["weights_on"]
 
-
-# Merge noms KPIs
 fact_links = fact_links.merge(dim_kpis[['kpi_id', 'kpi_name']], left_on='From_id', right_on='kpi_id', how='left').rename(columns={'kpi_name': 'kpi_from_name'})
 fact_links = fact_links.merge(dim_kpis[['kpi_id', 'kpi_name']], left_on='To_id', right_on='kpi_id', how='left').rename(columns={'kpi_name': 'kpi_to_name'})
 
-# Appliquer les filtres
 if bsc_filter:
     fact_links = fact_links[fact_links['bsc_from_cat'].isin(bsc_filter) | fact_links['bsc_to_cat'].isin(bsc_filter)]
 if sust_filter == "Oui uniquement":
@@ -157,12 +129,10 @@ if sust_filter == "Oui uniquement":
 elif sust_filter == "Non uniquement":
     fact_links = fact_links[(fact_links['kpi_from_is_sust'] == 'No') & (fact_links['kpi_to_is_sust'] == 'No')]
 
-# Données pour le graphe
 kpi_from_list = fact_links['kpi_from_name'].tolist()
 kpi_to_list = fact_links['kpi_to_name'].tolist()
 all_kpis = list(set(kpi_from_list + kpi_to_list))
 
-# Positionnement
 nodes_position = {}
 if bsc_view:
     x_pos = {"Finance": 0.6, "Customer": 0.8, "Internal Business Processes": 0.7, "Learning and Growth": 0.9}
@@ -185,7 +155,6 @@ else:
     angles = np.linspace(0, 2 * np.pi, len(all_kpis), endpoint=False)
     nodes_position = {kpi: (np.cos(a), np.sin(a)) for kpi, a in zip(all_kpis, angles)}
 
-# Couleurs
 node_colors = {kpi: "gray" for kpi in all_kpis}
 if sust_on:
     for _, row in fact_links.iterrows():
@@ -194,30 +163,28 @@ if sust_on:
         if row['kpi_to_is_sust'] == 'Yes':
             node_colors[row['kpi_to_name']] = '#3BAA5D'
 
-# Arêtes
 edges = [(row['kpi_from_name'], row['kpi_to_name'], row['weight'], row['sign']) for _, row in fact_links.iterrows()]
-edge_widths = [2 + (w * 4 / 10) if weights_on else 2 for _, _, w, _ in edges]
+edge_widths = [scale * (2 + (w * 4 / 10)) if weights_on else 2 * scale for _, _, w, _ in edges]
 edge_labels = {(s, e): '+' if sign == 'Positive' else '-' for s, e, _, sign in edges}
 
-# Affichage graphique
-fig, ax = plt.subplots(figsize=(10, 6))
-fig.patch.set_facecolor('none')       
-ax.set_facecolor('none')           
-node_radius = 0.08
+fig, ax = plt.subplots(figsize=(10 * scale, 6 * scale))
+fig.patch.set_facecolor('none')
+ax.set_facecolor('none')
+node_radius = 0.08 * scale
 for node, (x, y) in nodes_position.items():
-    ax.scatter(x, y, s=2000, color=node_colors[node], zorder=3)
-    ax.text(x, y, format_label(node), ha='center', va='center', fontsize=8, fontweight='bold', color='white', zorder=4)
+    ax.scatter(x, y, s=2000 * scale, color=node_colors[node], zorder=3)
+    ax.text(x, y, format_label(node), ha='center', va='center', fontsize=8 * scale, fontweight='bold', color='white', zorder=4)
 
 for (start, end, weight, sign), width in zip(edges, edge_widths):
     posA, posB = adjust_arrow_positions(nodes_position[start], nodes_position[end], node_radius)
-    arrow = FancyArrowPatch(posA, posB, arrowstyle='-|>', mutation_scale=20, color='black', linewidth=width, connectionstyle="arc3,rad=0.1", zorder=2)
+    arrow = FancyArrowPatch(posA, posB, arrowstyle='-|>', mutation_scale=20 * scale, color='black', linewidth=width, connectionstyle="arc3,rad=0.1", zorder=2)
     ax.add_patch(arrow)
 
 if signs_on:
     for (start, end), label in edge_labels.items():
         mid_x = (nodes_position[start][0] + nodes_position[end][0]) / 2
         mid_y = (nodes_position[start][1] + nodes_position[end][1]) / 2
-        ax.text(mid_x, mid_y, label, fontsize=16, bbox=dict(facecolor='white', edgecolor='none'), ha='center', va='center')
+        ax.text(mid_x, mid_y, label, fontsize=16 * scale, bbox=dict(facecolor='white', edgecolor='none'), ha='center', va='center')
 
 if bsc_view:
     ax.set_xlim(0, 4)
