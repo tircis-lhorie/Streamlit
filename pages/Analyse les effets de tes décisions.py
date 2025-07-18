@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch
 import io
 
+st.set_page_config(page_title="TIRCIS Dashboard",
+                   page_icon="image/icon-transparent.png",
+                   layout="wide")
 st.logo("image/GIF2.gif", icon_image="image/icon.png")
 st.title("Visualisation des causalités entre KPIs")
 st.markdown("""
