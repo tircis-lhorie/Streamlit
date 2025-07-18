@@ -18,7 +18,6 @@ Utilisez les filtres pour explorer les indicateurs par **catégorie BSC**, **dur
 
 
 
-
 # --- Fonctions utilitaires ---
 def format_label(label):
     return label.replace(' ', '\n')
@@ -46,14 +45,9 @@ with st.sidebar:
     sust_filter = st.selectbox("Durable uniquement ?", ["Tous", "Oui uniquement", "Non uniquement"])
 st.sidebar.markdown("---")
 st.sidebar.subheader("À propos de TIRCIS")
-st.sidebar.markdown(
-    """
-    **TIRCIS** est une spin-off de l'Université de Namur spécialisée en **Business Intelligence** augmentée.
-    
-    Notre solution permet de **cartographier les liens de causalité entre les KPIs** d’une organisation afin d’anticiper les effets de chaque décision.
+st.sidebar.markdown("<p style='color: white;'> <b>TIRCIS</b> est une spin-off de l'Université de Namur spécialisée en <b>Business Intelligence</b>. <br><br>Notre solution permet de <b>cartographier les liens de causalité entre les KPIs</b> d’une organisation afin d’anticiper les effets de chaque décision. <br><br>Contact: <u>tircis@unamur.be</u></p>", unsafe_allow_html=True)
 
-    Contact: tircis@unamur.be    """
-)
+
 
 st.markdown("""
 <style>
