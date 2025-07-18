@@ -84,16 +84,16 @@ with col1:
     st.markdown("### 🔄 Analyse les effets de tes décisions")
     st.markdown("Carte interactive pour comprendre les impacts.")
     if st.button("C’est parti !", key="page1"):
-        switch_page("Page1")
+        st.switch_page("Page1")
 
 with col2:
     st.markdown("### 📊 Découvre ton tableau de bord")
     st.markdown("Visualise tes données dans le temps.")
     if st.button("C’est parti !", key="page2"):
-        switch_page("Découvre ton tableau de bord")
+        st.switch_page("Découvre ton tableau de bord")
 
 with col3:
     st.markdown("### 🔎 Explore les causalités en détail")
     st.markdown("Filtre et exporte les résultats complets.")
     if st.button("C’est parti !", key="page3"):
-        switch_page("Explore les causalités en détail")
+        st.switch_page("Explore les causalités en détail")
