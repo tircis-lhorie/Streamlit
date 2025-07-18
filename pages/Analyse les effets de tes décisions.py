@@ -203,9 +203,9 @@ edge_labels = {(s, e): '+' if sign == 'Positive' else '-' for s, e, _, sign in e
 fig, ax = plt.subplots(figsize=(10, 6))
 fig.patch.set_facecolor('none')       
 ax.set_facecolor('none')           
-node_radius = 0.13
+node_radius = 0.08
 for node, (x, y) in nodes_position.items():
-    ax.scatter(x, y, s=6000, color=node_colors[node], zorder=3)
+    ax.scatter(x, y, s=2000, color=node_colors[node], zorder=3)
     ax.text(x, y, format_label(node), ha='center', va='center', fontsize=12, fontweight='bold', color='white', zorder=4)
 
 for (start, end, weight, sign), width in zip(edges, edge_widths):
