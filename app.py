@@ -82,19 +82,19 @@ st.markdown("## ")
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.markdown("### 🔄 Analyse les effets de tes décisions")
+    st.markdown("### Analyse les effets de tes décisions")
     st.markdown("Carte interactive pour comprendre les impacts.")
     if st.button("C’est parti !", key="page1"):
-        st.switch_page("Page1")
+        st.switch_page("pages/Analyse les effets de tes décisions.py")
 
 with col2:
-    st.markdown("### 📊 Découvre ton tableau de bord")
+    st.markdown("### Découvre ton tableau de bord")
     st.markdown("Visualise tes données dans le temps.")
     if st.button("C’est parti !", key="page2"):
         st.switch_page("pages/Découvre ton tableau de bord.py")
 
 with col3:
-    st.markdown("### 🔎 Explore les causalités en détail")
+    st.markdown("### Explore les causalités en détail")
     st.markdown("Filtre et exporte les résultats complets.")
     if st.button("C’est parti !", key="page3"):
         st.switch_page("pages/Explore les causalités en détail.py")
