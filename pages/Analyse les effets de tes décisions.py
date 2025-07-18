@@ -200,7 +200,7 @@ edge_widths = [2 + (w * 4 / 10) if weights_on else 2 for _, _, w, _ in edges]
 edge_labels = {(s, e): '+' if sign == 'Positive' else '-' for s, e, _, sign in edges}
 
 # Affichage graphique
-fig, ax = plt.subplots(figsize=(18, 11))
+fig, ax = plt.subplots(figsize=(10, 6))
 fig.patch.set_facecolor('none')       
 ax.set_facecolor('none')           
 node_radius = 0.13
