@@ -167,7 +167,7 @@ edges = [(row['kpi_from_name'], row['kpi_to_name'], row['weight'], row['sign']) 
 edge_widths = [scale * (2 + (w * 4 / 10)) if weights_on else 2 * scale for _, _, w, _ in edges]
 edge_labels = {(s, e): '+' if sign == 'Positive' else '-' for s, e, _, sign in edges}
 
-fig, ax = plt.subplots(figsize=(10 * scale, 6 * scale))
+fig, ax = plt.subplots(figsize=(8 * scale, 5 * scale))
 fig.patch.set_facecolor('none')
 ax.set_facecolor('none')
 node_radius = 0.08 * scale
