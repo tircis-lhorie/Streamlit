@@ -78,6 +78,17 @@ st.markdown("Bienvenue sur l'application TIRCIS.")
 # Espacement
 st.markdown("## ")
 
+
+
+if st.button("Home"):
+    st.switch_page("app.py")
+if st.button("Page 1"):
+    st.switch_page("pages/Page1.py")
+if st.button("Page 2"):
+    st.switch_page("pages/Explore les causalités en détail.py")
+
+
+
 col1, col2, col3 = st.columns(3)
 
 with col1:
