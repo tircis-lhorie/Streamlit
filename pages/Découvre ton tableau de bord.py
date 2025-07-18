@@ -27,14 +27,9 @@ with st.sidebar:
     date_range = st.date_input("Période", value=[min_date, max_date])
 
 st.sidebar.subheader("À propos de TIRCIS")
-st.sidebar.info(
-    """
-    **TIRCIS** est une spin-off de l'Université de Namur spécialisée en **Business Intelligence** augmentée.
-    
-    Notre solution permet de **cartographier les liens de causalité entre les KPIs** d’une organisation afin d’anticiper les effets de chaque décision.
+st.sidebar.markdown("<p style='color: white;'> <b>TIRCIS</b> est une spin-off de l'Université de Namur spécialisée en <b>Business Intelligence</b>. <br><br>Notre solution permet de <b>cartographier les liens de causalité entre les KPIs</b> d’une organisation afin d’anticiper les effets de chaque décision. <br><br>Contact: <u>tircis@unamur.be</u></p>", unsafe_allow_html=True)
 
-    Contact: tircis@unamur.be    """
-)
+
 
 # --- Filtrage des données ---
 filtered_data = fact_data[
