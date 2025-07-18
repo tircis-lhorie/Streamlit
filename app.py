@@ -62,7 +62,7 @@ def login():
                         st.session_state.authenticated = True
                         st.rerun()
                     else:
-                        st.error("Identifiants incorrects.")
+                        st.error("Identifiants incorrects. Pour recevoir votre identifiant, veuillez contacter tircis@unamur.be")
             st.markdown('</div>', unsafe_allow_html=True)
 
 if not st.session_state.authenticated:
