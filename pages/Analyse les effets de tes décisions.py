@@ -6,7 +6,7 @@ from matplotlib.patches import FancyArrowPatch
 import io
 
 # --- Mise à l'échelle globale ---
-scale = 1.0  # Modifie cette variable pour ajuster toutes les tailles
+scale = 0.2  # Modifie cette variable pour ajuster toutes les tailles
 
 # Si l'utilisateur n'est pas authentifié
 if "authenticated" not in st.session_state or not st.session_state.authenticated:
