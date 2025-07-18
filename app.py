@@ -79,16 +79,6 @@ st.markdown("Bienvenue sur l'application TIRCIS.")
 st.markdown("## ")
 
 
-
-if st.button("Home"):
-    st.switch_page("app.py")
-if st.button("Page 1"):
-    st.switch_page("pages/Page1")
-if st.button("Page 2"):
-    st.switch_page("pages/Explore les causalités en détail.py")
-
-
-
 col1, col2, col3 = st.columns(3)
 
 with col1:
@@ -101,10 +91,10 @@ with col2:
     st.markdown("### 📊 Découvre ton tableau de bord")
     st.markdown("Visualise tes données dans le temps.")
     if st.button("C’est parti !", key="page2"):
-        st.switch_page("Découvre ton tableau de bord")
+        st.switch_page("pages/Découvre ton tableau de bord.py")
 
 with col3:
     st.markdown("### 🔎 Explore les causalités en détail")
     st.markdown("Filtre et exporte les résultats complets.")
     if st.button("C’est parti !", key="page3"):
-        st.switch_page("Explore les causalités en détail")
+        st.switch_page("pages/Explore les causalités en détail.py")
