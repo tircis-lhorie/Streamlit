@@ -10,7 +10,7 @@ if "authenticated" not in st.session_state or not st.session_state.authenticated
     st.warning("Vous devez être connecté pour accéder à cette page.")
     
     if st.button("Retour à la page de connexion"):
-        switch_page("app") 
+        st.switch_page("app") 
     st.stop()
 
 
