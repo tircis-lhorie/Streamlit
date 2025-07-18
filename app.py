@@ -5,8 +5,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch
 from streamlit_extras.switch_page_button import switch_page
-import get_pages
-
 
 # --- Interface Streamlit ---
 st.set_page_config(page_title="TIRCIS Dashboard",
