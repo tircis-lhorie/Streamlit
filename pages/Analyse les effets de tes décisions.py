@@ -88,20 +88,22 @@ div[data-testid="stButton"] button:hover {
 
 def filter_button(label, key):
     active = st.session_state.get(key, False)
-    clicked = st.button(label, key=key + "_btn")
-    if clicked:
+    btn = st.button(label, key=key + "_btn")
+    if btn:
         st.session_state[key] = not active
-    if st.session_state[key]:
-        st.markdown(f"""
-        <style>
-        div[data-testid="stButton"][data-key="{key}_btn"] button {{
-            color: #FFA500 !important;
-            border: 2px solid #FFA500 !important;
-            background-color: #FFF5E6 !important;
-            font-weight: bold !important;
-        }}
-        </style>
-        """, unsafe_allow_html=True)
+
+    style = f"""
+    <style>
+    div[data-testid="stButton"][data-key="{key}_btn"] button {{
+        color: {"#FFA500" if st.session_state[key] else "#888888"} !important;
+        border: 2px solid {"#FFA500" if st.session_state[key] else "#CCCCCC"} !important;
+        background-color: {"#FFF5E6" if st.session_state[key] else "white"} !important;
+        font-weight: {"bold" if st.session_state[key] else "normal"} !important;
+    }}
+    </style>
+    """
+    st.markdown(style, unsafe_allow_html=True)
+
 
 # Initialiser filtres
 for key, default in {
