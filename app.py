@@ -9,7 +9,7 @@ from streamlit_extras.switch_page_button import switch_page
 
 # --- Interface Streamlit ---
 st.set_page_config(page_title="TIRCIS Dashboard",
-                   page_icon="image/icon.png",
+                   page_icon="image/icon-transparent.png",
                    layout="wide")
 st.logo("image/GIF2.gif", icon_image="image/icon.png")
 
