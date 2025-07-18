@@ -170,14 +170,14 @@ edge_labels = {(s, e): '+' if sign == 'Positive' else '-' for s, e, _, sign in e
 fig, ax = plt.subplots(figsize=(8 * scale, 5 * scale))
 fig.patch.set_facecolor('none')
 ax.set_facecolor('none')
-node_radius = 0.08 * scale
+node_radius = 0.05 * scale
 for node, (x, y) in nodes_position.items():
     ax.scatter(x, y, s=2000 * scale, color=node_colors[node], zorder=3)
-    ax.text(x, y, format_label(node), ha='center', va='center', fontsize=8 * scale, fontweight='bold', color='white', zorder=4)
+    ax.text(x, y, format_label(node), ha='center', va='center', fontsize=6 * scale, fontweight='bold', color='white', zorder=4)
 
 for (start, end, weight, sign), width in zip(edges, edge_widths):
     posA, posB = adjust_arrow_positions(nodes_position[start], nodes_position[end], node_radius)
-    arrow = FancyArrowPatch(posA, posB, arrowstyle='-|>', mutation_scale=20 * scale, color='black', linewidth=width, connectionstyle="arc3,rad=0.1", zorder=2)
+    arrow = FancyArrowPatch(posA, posB, arrowstyle='-|>', mutation_scale=10 * scale, color='black', linewidth=width, connectionstyle="arc3,rad=0.1", zorder=2)
     ax.add_patch(arrow)
 
 if signs_on:
