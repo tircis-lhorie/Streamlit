@@ -1,6 +1,9 @@
 import streamlit as st
 import pandas as pd
 
+st.set_page_config(page_title="TIRCIS Dashboard",
+                   page_icon="image/icon-transparent.png",
+                   layout="wide")
 st.logo("image/GIF2.gif", icon_image="image/icon.png")
 
 # --- Chargement des données ---
