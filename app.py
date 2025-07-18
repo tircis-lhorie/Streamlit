@@ -50,7 +50,7 @@ def login():
         with col2:
             st.markdown('<div class="centered-container">', unsafe_allow_html=True)
             st.title("Connexion requise")
-            st.subheader("Veuillez entrer votre code PIN pour accéder à l'application")
+            st.subheader("Entrez vos identifiants pour accéder à l'application TIRCIS")
 
             with st.form(key="login_form"):
                 username = st.text_input("Adresse email")
