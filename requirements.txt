@@ -4,4 +4,3 @@ pandas
 numpy
 altair
 streamlit-extras
-streamlit.source_util
