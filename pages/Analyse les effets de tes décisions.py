@@ -5,6 +5,10 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch
 import io
 
+if "authenticated" not in st.session_state or not st.session_state.authenticated:
+    st.warning("Vous devez être connecté pour accéder à cette page.")
+    st.stop()
+  
 st.set_page_config(page_title="TIRCIS Dashboard",
                    page_icon="image/icon-transparent.png",
                    layout="wide")
