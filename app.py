@@ -83,7 +83,7 @@ st.markdown("## ")
 if st.button("Home"):
     st.switch_page("app.py")
 if st.button("Page 1"):
-    st.switch_page("pages/Page1.py")
+    st.switch_page("pages/Page1")
 if st.button("Page 2"):
     st.switch_page("pages/Explore les causalités en détail.py")
 
