@@ -84,7 +84,7 @@ col1, col2, col3 = st.columns(3)
 with col1:
     st.markdown("### Analyse les effets de tes décisions")
     st.markdown("Carte interactive pour comprendre les impacts.")
-    if st.button("C’est parti !", key="page1"):
+    if st.button("Page 1"):
       st.switch_page("pages/Analyse les effets de tes décisions.py")
 
 with col2:
